@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/masuk_admin.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- kolom kiri -->
+        <div class="auth-left">
+            <div class="left-content">
+                <h1>Selamat Datang Admin</h1>
+                <p>Masuk ke dashboard untuk mengelola konten, artikel, dan data budaya Jawa Timur. Pastikan akun Anda aman dengan menggunakan username dan password yang valid.</p>
+            </div>
+        </div>
+
+        <!-- kolo kanan -->
+        <div class="auth-right">
+            <div class="form-card">
+                <h2>Masuk</h2>
+
+                <form action="#" method="POST">
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                    </div>
+
+                    <!-- sandi -->
+                    <div class="form-group">
+                        <label for="password">Sandi</label>
+                        <input type="password" id="password" name="password" placeholder="Masukkan sandi" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="username">ID</label>
+                        <input type="text" id="username" name="username" placeholder="Masukkan ID" required>
+                    </div>
+
+                    <!-- Tombol Daftar -->
+                    <button type="submit" class="btn-primary"><a href="dashboard_user.html">Daftar</a></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

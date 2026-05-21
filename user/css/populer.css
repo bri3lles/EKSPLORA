@@ -1,0 +1,230 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+  font-family: Arial;
+}
+
+body {
+  font-family: Arial;
+  color: #501006;
+  background: #ffffff;
+}
+
+header {
+  background-color: #ffffff;
+  color: #501006;
+  padding: 8px 50px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  border-bottom: 1px solid #ddd;
+  box-shadow: 0 1px 10px #501006;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+}
+
+.logo span {
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(to right, #603419, #d39e46);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+}
+
+nav ul li a {
+    font-size: 15px;
+    transition: 0.3s;
+    color: #501006;
+    text-decoration: none;
+}
+
+nav ul li a:hover {
+    color: #501006;
+}
+
+.btn-daftar {
+    background-color: #501006;
+    color: #fff;
+    padding: 6px 14px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-daftar:hover {
+    background-color: #603419;
+    color: #ffffff;
+}
+
+.hero {
+    background: url("assets/populerherobg.png");
+    width: 100%;
+    height: 251px;
+    position: relative;
+}
+
+.populer-section {
+    font-family: Arial;
+    background: #fff;
+    padding: 40px 0;
+    width: 90%;
+    max-width: 1100px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.populer-cards {
+    margin: auto;
+    display: flex;
+    align-items: stretch;
+    background: linear-gradient(to right, #501006, #5a2e27, #ffffff);
+    width: 100%;
+    height: 160px;
+    margin: auto 80px;
+    overflow: hidden;
+}
+
+.populer-cards.reverse {
+    margin: auto 160px;
+    flex-direction: row-reverse;
+    background: linear-gradient(to left, #501006, #5a2e27, #ffffff);
+}
+
+.populer-cards.reverse .populer-content {
+    text-align: left;
+    padding: 25px 25px 25px 100px;
+}
+
+.populer-cards img {
+    width: 320px;
+    height: 160px;
+    object-fit: cover;
+}
+
+.populer-content {
+    position: relative;
+    padding: 25px 100px 25px 25px;
+    color: #fff;
+    flex: 1;
+}
+
+.populer-content h2 {
+    margin: 0px;
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 120px;
+}
+
+.populer-content .lokasi {
+    font-size: 10px;
+    opacity: 0.6;
+    margin-bottom: 10px;
+}
+
+.populer-content p {
+    font-size: 15px;
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+.btn-baca {
+    background-color: #501006;
+    border: none;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+}
+
+.footer {
+    background-color: #5a0d06;
+    color: #fff;
+    padding: 30px 40px;
+    font-family: Arial;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 40px;
+}
+
+.footer-left {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-sections-wrapper {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    border-bottom: 1px solid #bdaaaa;
+    padding-bottom: 20px;
+    flex: 1;
+}
+
+.footer-logo img {
+    background-color: #fff;
+    width: 194px;
+    height: 194px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+
+.footer-section h3 {
+    font-style: bold;
+    margin-bottom: 10px;
+    font-size: 24px;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    font-style: normal;
+    opacity: 0.8;
+    margin-bottom: 6px;
+    font-size: 15px;
+}
+
+.footer-section p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.footer-desc {
+    margin-top: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+    max-width: 900px;
+}

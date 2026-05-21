@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/masuk.css">
+</head>
+<body>
+
+    <div class="auth-container">
+        <!-- kolom kiri -->
+        <div class="auth-left" style="background-image: url('../assets/background.jpeg'); background-size: cover; background-position: center;">
+            <div class="left-content">
+                <h1>Sudah punya akun?</h1>
+                <p>Login sekarang dan nikmati kelanjutan perjalanan budaya yang sudah kamu mulai. Dengan satu langkah, kamu bisa kembali terhubung dengan kekayaan tradisi Jawa Timur yang luar biasa.</p>
+            </div>
+        </div>
+
+        <!-- kolo kanan -->
+        <div class="auth-right">
+            <a href="#" class="back-link">kembali ke beranda</a>
+            
+            <div class="form-card">
+                <h2>Masuk</h2>
+
+                <form action="#" method="POST">
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                    </div>
+
+                    <!-- sandi -->
+                    <div class="form-group">
+                        <label for="password">Sandi</label>
+                        <input type="password" id="password" name="password" placeholder="Masukkan sandi" required>
+                    </div>
+
+                    <!-- Tombol Daftar -->
+                    <button type="submit" class="btn-primary"><a href="dashboard_user.html">Masuk</a></button>
+                </form>
+
+                <!-- Separator -->
+                <div class="separator">atau masuk dengan</div>
+                
+                <!-- Ikon Sosial Media -->
+                <div class="social-icons">
+                    <a href="#" class="social-icon" title="Masuk dengan Google"><i class="fa-brands fa-google"></i></a>
+                    <a href="#" class="social-icon" title="Masuk dengan Apple"><i class="fa-brands fa-apple"></i></a>
+                    <a href="#" class="social-icon" title="Masuk dengan Twitter"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+
+                <div class="switch-link">
+                    Belum punya akun? <a href="daftar.html">Daftar</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

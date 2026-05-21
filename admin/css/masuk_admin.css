@@ -1,0 +1,234 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.auth-container {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* --- Kolom kiri --- */
+.auth-left {
+    flex: 1;
+    background-image: url('background.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem;
+    color: #ffffff;
+    text-align: left;
+    height: 100%;
+    width: 100%;
+}
+
+.left-content {
+    max-width: 100%;
+}
+
+.left-content h1 {
+    font-size: 40px;
+    font-weight: 600;
+    line-height: 40px;
+    margin-bottom: 10px;
+}
+
+.left-content p {
+    font-size: 12px;
+    font-weight: 300;
+    opacity: 0.7;
+}
+
+/* --- Kolom kanan --- */
+.auth-right {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 80px;
+    position: relative;
+}
+
+/* --- card --- */
+.form-card {
+    width: 70%;
+    height: 90%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 40px;
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+    margin-top: 0;
+}
+
+.form-card h2 {
+    font-size: 35px;
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 20px;
+    color: #501006;
+}
+
+/* kembali */
+.back-link {
+    position: absolute;
+    text-align: center;
+    top: 40px;
+    font-size: 10px;
+    color: #50100676;
+    text-decoration: none;
+    transition: color 0.2s;
+    z-index: 10;
+}
+
+.back-link:hover {
+    color: #501006;
+}
+
+/* --- Form Elements --- */
+.form-group {
+    margin-bottom: 10px;
+}
+
+.form-group label {
+    color: #501006;
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px 12px;
+    font-size: 12px;
+    color: #50100676;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #501006;
+    box-shadow: 0 0 0 2px rgba(107, 43, 24, 0.2);
+}
+
+/* --- Primary Button --- */
+.btn-primary {
+    width: 100%;
+    padding: 10px 12px;
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: #501006;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    margin-top: 1rem;
+    overflow: auto;
+}
+
+.btn-primary a {
+    color: white;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background-color: #923a24;
+}
+
+.btn-primary:active {
+    transform: scale(0.99);
+}
+
+/* --- Social Media & Separator --- */
+.separator {
+    display: flex;
+    align-items: center;
+    font-size: 10px;
+    color: #50100676;
+    text-align: center;
+    margin: 16px 0;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background-color: #e5e7eb;
+}
+
+.separator:not(:empty)::before {
+    margin-right: .5rem;
+}
+
+.separator:not(:empty)::after {
+    margin-left: .5rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    margin-top: -3%;
+    gap: 12px;
+}
+
+.social-icon {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    color: #501006;
+    font-size: 10px;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.social-icon:hover {
+    border-color: #501006;
+    background-color: #fef2f2;
+}
+
+/* --- Footer Link (Pindah halaman) --- */
+.switch-link {
+    text-align: center;
+    margin-top: 60px;
+    font-size: 10px;
+    color: #50100676;
+}
+
+.switch-link a {
+    color: #501006;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s;
+}
+
+.switch-link a:hover {
+    color: #50100676;
+    text-decoration: underline;
+}

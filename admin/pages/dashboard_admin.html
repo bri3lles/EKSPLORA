@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eksplora Admin Dashboard</title>
+    <!-- Muat Tailwind CSS dari CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Konfigurasi Tailwind untuk mendefinisikan warna kustom 'maroon' (#501006)
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'maroon': {
+                            DEFAULT: '#501006', // Warna Utama: #501006
+                            light: '#7f3025',  // Lighter shade for hover effects
+                            dark: '#330a04',   // Darker shade for sidebar
+                        },
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Menggunakan font Inter */
+        html { font-family: 'Inter', sans-serif; }
+
+        /* Style untuk status loading API */
+        #api-analysis-result.loading::before {
+            content: '';
+            display: inline-block;
+            width: 1rem;
+            height: 1rem;
+            margin-right: 0.5rem;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #501006; /* Warna primer untuk spinner */
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global variables provided by the Canvas environment
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId;
+
+        // --- Inisialisasi Firebase & Otentikasi ---
+        window.initFirebase = async () => {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.error("Kesalahan: Konfigurasi Firebase tidak ditemukan.");
+                    document.getElementById('content-area').innerHTML = '<div class="p-8 text-red-600">Kesalahan konfigurasi Firebase. Pastikan variabel __firebase_config terisi.</div>';
+                    return;
+                }
+
+                setLogLevel('debug'); // Aktifkan logging debug untuk Firestore
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Otentikasi pengguna
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                } else {
+                    await signInAnonymously(auth);
+                }
+
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Pengguna terotentikasi. UID:", userId);
+                        // Tampilkan UID di dashboard
+                        document.getElementById('user-id-display').textContent = `ID Pengguna: ${userId}`;
+                        // Setelah otentikasi, panggil inisialisasi aplikasi
+                        window.db = db;
+                        window.auth = auth;
+                        window.userId = userId;
+                        window.loadPage('articles'); // Muat halaman default setelah otentikasi
+                    } else {
+                        console.log("Pengguna belum terotentikasi.");
+                    }
+                });
+            } catch (error) {
+                console.error("Gagal menginisialisasi Firebase:", error);
+                document.getElementById('content-area').innerHTML = `<div class="p-8 text-red-600">Gagal menginisialisasi Firebase: ${error.message}</div>`;
+            }
+        };
+
+        // Export fungsi-fungsi Firestore yang sering digunakan ke window scope
+        window.firestore = {
+            doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, where, getDocs, serverTimestamp,
+            getCollectionPath: (name) => `/artifacts/${appId}/users/${userId}/${name}`,
+            getPublicCollectionPath: (name) => `/artifacts/${appId}/public/data/${name}`
+        };
+
+        window.initFirebase();
+
+        // --- Dummy Data (Statistik) ---
+        window.getDailyStats = () => {
+            return [
+                { date: '2025-11-25', views: 450, comments: 20, favorites: 50 },
+                { date: '2025-11-26', views: 520, comments: 35, favorites: 70 },
+                { date: '2025-11-27', views: 610, comments: 40, favorites: 90 },
+                { date: '2025-11-28', views: 750, comments: 55, favorites: 110 },
+            ];
+        };
+        window.getMonthlyStats = () => {
+            return [
+                { month: 'Jul', views: 15000, articles: 12, users: 500 },
+                { month: 'Aug', views: 18000, articles: 15, users: 650 },
+                { month: 'Sep', views: 22000, articles: 18, users: 800 },
+                { month: 'Oct', views: 25000, articles: 20, users: 950 },
+            ];
+        };
+
+    </script>
+    <script>
+        // --- Gemini API Configuration ---
+        const GEMINI_API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=';
+        const apiKey = ""; // Canvas will automatically provide the key
+
+        // --- Fungsi Utama Navigasi ---
+        window.loadPage = (pageName) => {
+            const contentArea = document.getElementById('content-area');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Reset active state
+            navLinks.forEach(link => link.classList.remove('bg-maroon', 'text-white'));
+
+            // Set active state for the current link
+            const activeLink = document.querySelector(`.nav-link[data-page="${pageName}"]`);
+            if (activeLink) {
+                activeLink.classList.add('bg-maroon', 'text-white');
+            }
+
+            // Muat konten halaman
+            contentArea.innerHTML = ''; // Kosongkan area konten
+            switch (pageName) {
+                case 'articles':
+                    renderArticlesPage(contentArea);
+                    break;
+                case 'stats':
+                    renderStatsPage(contentArea);
+                    break;
+                case 'users':
+                    renderUsersPage(contentArea);
+                    break;
+                case 'interactions':
+                    renderInteractionsPage(contentArea);
+                    break;
+                default:
+                    contentArea.innerHTML = '<div class="p-6 text-gray-500">Pilih menu di samping.</div>';
+            }
+        };
+
+        // --- Bagian Halaman (Rendering) ---
+
+        // 1. Halaman Artikel (CRUD)
+        async function renderArticlesPage(container) {
+            container.innerHTML = `
+                <header class="flex justify-between items-center mb-6 border-b pb-4">
+                    <h1 class="text-3xl font-bold text-gray-800">Kelola Artikel</h1>
+                    <button id="add-article-btn" class="bg-maroon hover:bg-maroon-light text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200">
+                        + Tambah Artikel Baru
+                    </button>
+                </header>
+                <div id="articles-list" class="space-y-4">
+                    <!-- Daftar Artikel akan dimuat di sini -->
+                    <div class="text-gray-500 text-center p-8">Memuat artikel...</div>
+                </div>
+
+                <!-- Modal Form Artikel -->
+                <div id="article-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden items-center justify-center p-4">
+                    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl p-6">
+                        <h2 id="modal-title" class="text-2xl font-bold mb-4 text-gray-800">Tambah Artikel</h2>
+                        <form id="article-form" class="space-y-4">
+                            <input type="hidden" id="article-id">
+                            <div>
+                                <label for="title" class="block text-sm font-medium text-gray-700">Judul</label>
+                                <input type="text" id="title" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:ring-maroon focus:border-maroon">
+                            </div>
+                            <div>
+                                <label for="category" class="block text-sm font-medium text-gray-700">Kategori</label>
+                                <input type="text" id="category" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:ring-maroon focus:border-maroon">
+                            </div>
+                            <div>
+                                <label for="content" class="block text-sm font-medium text-gray-700">Konten (Ringkas)</label>
+                                <textarea id="content" rows="6" required class="mt-1 block w-full border border-gray-300 rounded-lg shadow-sm p-2 focus:ring-maroon focus:border-maroon"></textarea>
+                            </div>
+                            <div class="flex justify-end space-x-3">
+                                <button type="button" id="close-modal-btn" class="px-4 py-2 text-gray-600 bg-gray-200 hover:bg-gray-300 rounded-lg font-semibold transition duration-200">Batal</button>
+                                <button type="submit" class="px-4 py-2 bg-maroon hover:bg-maroon-light text-white rounded-lg font-semibold transition duration-200">Simpan Artikel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            `;
+            // Pasang event listeners setelah HTML dimuat
+            document.getElementById('add-article-btn').addEventListener('click', () => openArticleModal());
+            document.getElementById('close-modal-btn').addEventListener('click', () => document.getElementById('article-modal').classList.add('hidden'));
+            document.getElementById('article-form').addEventListener('submit', handleArticleFormSubmit);
+
+            setupArticleRealtimeListener(document.getElementById('articles-list'));
+        }
+
+        // Firestore & Listener untuk Artikel
+        function setupArticleRealtimeListener(listElement) {
+            if (!window.db || !window.userId) {
+                listElement.innerHTML = '<div class="text-red-500 text-center p-8">Sistem belum terinisialisasi. Coba muat ulang halaman.</div>';
+                return;
+            }
+            const articlesRef = window.firestore.collection(window.db, window.firestore.getCollectionPath('articles'));
+
+            window.firestore.onSnapshot(articlesRef, (snapshot) => {
+                const articles = [];
+                snapshot.forEach(doc => {
+                    articles.push({ id: doc.id, ...doc.data() });
+                });
+                renderArticlesList(listElement, articles.reverse());
+            }, (error) => {
+                console.error("Gagal mendapatkan data artikel:", error);
+                listElement.innerHTML = `<div class="text-red-500 text-center p-8">Gagal memuat data: ${error.message}</div>`;
+            });
+        }
+
+        function renderArticlesList(listElement, articles) {
+            if (articles.length === 0) {
+                listElement.innerHTML = '<div class="text-gray-500 text-center p-8 border border-dashed rounded-lg">Belum ada artikel. Klik "Tambah Artikel Baru" untuk memulai.</div>';
+                return;
+            }
+            listElement.innerHTML = articles.map(article => `
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-start hover:shadow-lg transition duration-200">
+                    <div>
+                        <h3 class="text-xl font-semibold text-gray-800">${article.title}</h3>
+                        <p class="text-sm text-maroon mt-1">Kategori: ${article.category}</p>
+                        <p class="text-gray-600 mt-2 line-clamp-2">${article.content}</p>
+                        <p class="text-xs text-gray-400 mt-1">Dibuat: ${new Date(article.createdAt?.toDate()).toLocaleString('id-ID') || 'N/A'}</p>
+                    </div>
+                    <div class="flex space-x-2 mt-1 flex-shrink-0">
+                        <button onclick="window.openArticleModal('${article.id}')" class="text-sm text-maroon hover:text-maroon-light font-medium p-1 rounded-full hover:bg-gray-100 transition duration-200" title="Edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M13.586 3.586a2 2 0 112.828 2.828l-.793.793-2.828-2.828.793-.793zm-5.464 5.464l-4.243 4.243A1 1 0 005.121 16h4.243l-4.243-4.243zM10 14l-4 4H4a2 2 0 01-2-2v-2l4-4 2 2z"/></svg>
+                        </button>
+                        <button onclick="window.deleteArticle('${article.id}', '${article.title}')" class="text-sm text-red-600 hover:text-red-800 font-medium p-1 rounded-full hover:bg-red-50 transition duration-200" title="Hapus">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // CRUD Functions
+        window.openArticleModal = async (id = null) => {
+            const modal = document.getElementById('article-modal');
+            const titleInput = document.getElementById('title');
+            const categoryInput = document.getElementById('category');
+            const contentInput = document.getElementById('content');
+            const articleIdInput = document.getElementById('article-id');
+            const modalTitle = document.getElementById('modal-title');
+            const submitButton = document.querySelector('#article-form button[type="submit"]');
+
+            if (id) {
+                // Mode Edit
+                modalTitle.textContent = 'Edit Artikel';
+                submitButton.textContent = 'Perbarui Artikel';
+                articleIdInput.value = id;
+                try {
+                    const docRef = window.firestore.doc(window.db, window.firestore.getCollectionPath('articles'), id);
+                    const docSnap = await window.firestore.getDoc(docRef);
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        titleInput.value = data.title || '';
+                        categoryInput.value = data.category || '';
+                        contentInput.value = data.content || '';
+                    } else {
+                        console.error("Artikel tidak ditemukan.");
+                    }
+                } catch (e) {
+                    console.error("Gagal mengambil data untuk edit:", e);
+                }
+            } else {
+                // Mode Tambah Baru
+                modalTitle.textContent = 'Tambah Artikel Baru';
+                submitButton.textContent = 'Simpan Artikel';
+                articleIdInput.value = '';
+                titleInput.value = '';
+                categoryInput.value = '';
+                contentInput.value = '';
+            }
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        };
+
+        async function handleArticleFormSubmit(event) {
+            event.preventDefault();
+            const id = document.getElementById('article-id').value;
+            const title = document.getElementById('title').value;
+            const category = document.getElementById('category').value;
+            const content = document.getElementById('content').value;
+            const modal = document.getElementById('article-modal');
+
+            const articleData = { title, category, content };
+            const articleRef = window.firestore.collection(window.db, window.firestore.getCollectionPath('articles'));
+
+            try {
+                if (id) {
+                    // Update (Edit)
+                    const docRef = window.firestore.doc(articleRef, id);
+                    await window.firestore.updateDoc(docRef, { ...articleData, updatedAt: window.firestore.serverTimestamp() });
+                    console.log("Artikel berhasil diperbarui:", id);
+                } else {
+                    // Create (Tambah Baru)
+                    await window.firestore.addDoc(articleRef, { ...articleData, createdAt: window.firestore.serverTimestamp() });
+                    console.log("Artikel berhasil ditambahkan.");
+                }
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            } catch (e) {
+                console.error("Gagal menyimpan/memperbarui artikel:", e);
+                // Di aplikasi nyata, Anda akan menampilkan pesan error di UI
+            }
+        }
+
+        window.deleteArticle = async (id, title) => {
+            const confirmation = window.prompt(`Ketik "HAPUS" untuk mengonfirmasi penghapusan artikel: "${title}"`);
+            if (confirmation === "HAPUS") {
+                try {
+                    const docRef = window.firestore.doc(window.db, window.firestore.getCollectionPath('articles'), id);
+                    await window.firestore.deleteDoc(docRef);
+                    console.log("Artikel berhasil dihapus:", id);
+                } catch (e) {
+                    console.error("Gagal menghapus artikel:", e);
+                }
+            } else if (confirmation !== null) {
+                console.log("Penghapusan dibatalkan atau konfirmasi salah.");
+            }
+        };
+
+
+        // 2. Halaman Statistik
+        function renderStatsPage(container) {
+            const dailyData = window.getDailyStats();
+            const monthlyData = window.getMonthlyStats();
+
+            container.innerHTML = `
+                <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-4">Statistik & Analisis Data</h1>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <!-- Kartu Ringkasan Statistik -->
+                    ${renderStatCard('Total Views (Okt)', monthlyData.find(d => d.month === 'Oct').views.toLocaleString('id-ID'), 'text-green-600')}
+                    ${renderStatCard('Artikel Dibuat (Okt)', monthlyData.find(d => d.month === 'Oct').articles, 'text-maroon')}
+                    ${renderStatCard('Pengguna Baru (Okt)', monthlyData.find(d => d.month === 'Oct').users, 'text-yellow-600')}
+                    ${renderStatCard('Interaksi Harian', dailyData.reduce((sum, d) => sum + d.comments + d.favorites, 0), 'text-pink-600')}
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg mb-6">
+                    <h2 class="text-xl font-semibold mb-4 text-gray-800">Statistik Harian (4 Hari Terakhir)</h2>
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tanggal</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Views</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Komentar</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Favorit</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            ${dailyData.map(d => `
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${d.date}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${d.views.toLocaleString('id-ID')}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${d.comments}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${d.favorites}</td>
+                                </tr>
+                            `).join('')}
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Bagian Analisis Gemini AI -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-lg border border-maroon">
+                    <h2 class="text-xl font-semibold mb-4 text-maroon">Analisis Data Cepat (Gemini AI)</h2>
+                    <p class="text-gray-700 mb-4">Minta Gemini untuk menganalisis data harian dan memberikan kesimpulan tren.</p>
+                    <button id="analyze-data-btn" class="bg-maroon hover:bg-maroon-light text-white font-semibold py-2 px-4 rounded-lg shadow-md transition duration-200 disabled:opacity-50" onclick="window.analyzeStats()">
+                        Minta Analisis AI
+                    </button>
+                    <div id="api-analysis-result" class="mt-4 p-4 bg-white border border-gray-200 rounded-lg text-gray-700 min-h-[4rem]">
+                        Klik tombol di atas untuk mendapatkan analisis tren dari Gemini AI.
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderStatCard(title, value, colorClass) {
+            return `
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <p class="text-sm font-medium text-gray-500">${title}</p>
+                    <p class="text-4xl font-bold mt-1 ${colorClass}">${value}</p>
+                </div>
+            `;
+        }
+
+        // Fungsi Panggilan Gemini API untuk Analisis Data
+        window.analyzeStats = async () => {
+            const resultDiv = document.getElementById('api-analysis-result');
+            const button = document.getElementById('analyze-data-btn');
+
+            const dailyData = JSON.stringify(window.getDailyStats());
+            const monthlyData = JSON.stringify(window.getMonthlyStats());
+
+            const systemPrompt = "Anda adalah seorang Analis Data Ahli untuk dashboard web. Tugas Anda adalah menganalisis data yang diberikan dan memberikan kesimpulan tren yang ringkas, menyoroti setiap pertumbuhan atau penurunan yang signifikan, dalam bahasa Indonesia. Berikan hasilnya dalam satu paragraf yang mudah dibaca. Jangan sertakan peringatan atau catatan tentang sumber data.";
+            const userQuery = `Analisis data statistik harian (Daily Data) dan bulanan (Monthly Data) berikut ini:\n\nDaily Data: ${dailyData}\n\nMonthly Data: ${monthlyData}`;
+
+            resultDiv.innerHTML = 'Memproses analisis data...';
+            resultDiv.classList.add('loading', 'bg-yellow-50', 'text-yellow-800');
+            button.disabled = true;
+
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: { parts: [{ text: systemPrompt }] },
+            };
+
+            try {
+                // Implementasi Exponential Backoff
+                let response = null;
+                const maxRetries = 3;
+                let delay = 1000;
+
+                for (let i = 0; i < maxRetries; i++) {
+                    response = await fetch(GEMINI_API_URL + apiKey, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.ok) {
+                        break;
+                    } else if (response.status === 429 && i < maxRetries - 1) {
+                        // Retry for rate limits
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        delay *= 2; // Exponential backoff
+                    } else {
+                        throw new Error(`API Error: ${response.status} ${response.statusText}`);
+                    }
+                }
+
+                if (!response || !response.ok) {
+                    throw new Error("Gagal mendapatkan respons dari API setelah beberapa kali percobaan.");
+                }
+
+                const result = await response.json();
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text || 'Gagal mendapatkan hasil analisis.';
+
+                resultDiv.innerHTML = text;
+                resultDiv.classList.remove('bg-yellow-50', 'text-yellow-800');
+                resultDiv.classList.add('bg-green-50', 'text-green-800');
+
+            } catch (error) {
+                console.error("Kesalahan API Gemini:", error);
+                resultDiv.innerHTML = `Kesalahan: Gagal menganalisis data. ${error.message}`;
+                resultDiv.classList.remove('bg-yellow-50', 'text-yellow-800');
+                resultDiv.classList.add('bg-red-50', 'text-red-800');
+            } finally {
+                button.disabled = false;
+                resultDiv.classList.remove('loading');
+            }
+        };
+
+        // 3. Halaman Kelola Pengguna
+        function renderUsersPage(container) {
+            container.innerHTML = `
+                <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-4">Kelola Akun Pengguna</h1>
+                <p class="text-gray-600 mb-4">Fitur ini mensimulasikan pengelolaan akun pengguna (non-admin) yang terdaftar di website Eksplora. Data dimuat dari koleksi 'users'.</p>
+
+                <div id="users-list" class="space-y-4">
+                    <!-- Daftar Pengguna akan dimuat di sini -->
+                    <div class="text-gray-500 text-center p-8">Memuat data pengguna...</div>
+                </div>
+            `;
+            setupUsersRealtimeListener(document.getElementById('users-list'));
+        }
+
+        // Firestore & Listener untuk Pengguna
+        function setupUsersRealtimeListener(listElement) {
+            if (!window.db || !window.userId) {
+                listElement.innerHTML = '<div class="text-red-500 text-center p-8">Sistem belum terinisialisasi. Coba muat ulang halaman.</div>';
+                return;
+            }
+            // Menggunakan koleksi publik untuk simulasi data pengguna yang dapat dilihat admin
+            const usersRef = window.firestore.collection(window.db, window.firestore.getPublicCollectionPath('users'));
+
+            // Dummy data untuk mengisi jika koleksi kosong
+            const dummyUsers = [
+                { name: "Siti Rahayu", email: "siti.r@mail.com", role: "user", registeredAt: new Date(Date.now() - 86400000 * 30).toISOString() },
+                { name: "Budi Santoso", email: "budi.s@mail.com", role: "user", registeredAt: new Date(Date.now() - 86400000 * 15).toISOString() },
+                { name: "Dewi Kirana", email: "dewi.k@mail.com", role: "user", registeredAt: new Date(Date.now() - 86400000 * 5).toISOString() },
+            ];
+
+            // Cek apakah ada data, jika tidak, masukkan dummy data
+            window.firestore.getDocs(usersRef).then(snapshot => {
+                if (snapshot.empty) {
+                    dummyUsers.forEach(user => {
+                        window.firestore.addDoc(usersRef, user);
+                    });
+                }
+            }).catch(e => console.error("Gagal cek/masukkan dummy users:", e));
+
+
+            window.firestore.onSnapshot(usersRef, (snapshot) => {
+                const users = [];
+                snapshot.forEach(doc => {
+                    users.push({ id: doc.id, ...doc.data() });
+                });
+                renderUsersList(listElement, users.reverse());
+            }, (error) => {
+                console.error("Gagal mendapatkan data pengguna:", error);
+                listElement.innerHTML = `<div class="text-red-500 text-center p-8">Gagal memuat data pengguna: ${error.message}</div>`;
+            });
+        }
+
+        function renderUsersList(listElement, users) {
+            if (users.length === 0) {
+                listElement.innerHTML = '<div class="text-gray-500 text-center p-8">Tidak ada data pengguna terdaftar.</div>';
+                return;
+            }
+            listElement.innerHTML = users.map(user => `
+                <div class="bg-white p-4 rounded-lg shadow-md flex justify-between items-center">
+                    <div>
+                        <h3 class="text-lg font-semibold text-gray-800">${user.name} <span class="text-xs font-normal text-gray-500 ml-2">(${user.role})</span></h3>
+                        <p class="text-sm text-gray-600">${user.email}</p>
+                        <p class="text-xs text-gray-400 mt-1">Bergabung: ${new Date(user.registeredAt).toLocaleDateString('id-ID')}</p>
+                    </div>
+                    <div class="flex space-x-2">
+                        <button onclick="window.viewUserDetail('${user.id}')" class="text-sm text-maroon hover:text-maroon-light p-1 rounded-full hover:bg-gray-100 transition duration-200">Detail</button>
+                        <button onclick="window.confirmBanUser('${user.id}', '${user.name}')" class="text-sm text-red-600 hover:text-red-800 p-1 rounded-full hover:bg-red-50 transition duration-200">Blokir</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.viewUserDetail = (userId) => {
+            console.log(`Menampilkan detail pengguna ID: ${userId}`);
+            // Di aplikasi nyata, ini akan membuka modal atau halaman detail
+            alertMessage('Informasi', `Menampilkan detail pengguna ID: ${userId}.`);
+        };
+
+        window.confirmBanUser = (userId, userName) => {
+             const confirmation = window.prompt(`Ketik "BLOKIR" untuk memblokir pengguna: ${userName}`);
+            if (confirmation === "BLOKIR") {
+                // Di aplikasi nyata, Anda akan memperbarui status pengguna di Firestore
+                alertMessage('Sukses', `Pengguna ${userName} (ID: ${userId}) berhasil diblokir (simulasi).`);
+                console.log(`Pengguna ID: ${userId} diblokir.`);
+            } else if (confirmation !== null) {
+                alertMessage('Batal', 'Pemblokiran dibatalkan atau konfirmasi salah.');
+            }
+        };
+
+        // 4. Halaman Interaksi (Komentar & Favorit)
+        function renderInteractionsPage(container) {
+            container.innerHTML = `
+                <h1 class="text-3xl font-bold text-gray-800 mb-6 border-b pb-4">Data Interaksi (Komentar & Favorit)</h1>
+                <p class="text-gray-600 mb-4">Fitur ini mensimulasikan data komentar dan favorit pengguna pada artikel. Data dimuat dari koleksi 'interactions'.</p>
+
+                <div id="interactions-list" class="space-y-4">
+                    <!-- Daftar Interaksi akan dimuat di sini -->
+                    <div class="text-gray-500 text-center p-8">Memuat data interaksi...</div>
+                </div>
+            `;
+            setupInteractionsRealtimeListener(document.getElementById('interactions-list'));
+        }
+
+        // Firestore & Listener untuk Interaksi
+        function setupInteractionsRealtimeListener(listElement) {
+            if (!window.db || !window.userId) {
+                listElement.innerHTML = '<div class="text-red-500 text-center p-8">Sistem belum terinisialisasi. Coba muat ulang halaman.</div>';
+                return;
+            }
+             // Menggunakan koleksi publik untuk simulasi data interaksi yang dapat dilihat admin
+            const interactionsRef = window.firestore.collection(window.db, window.firestore.getPublicCollectionPath('interactions'));
+
+            // Dummy data untuk mengisi jika koleksi kosong
+            const dummyInteractions = [
+                { type: "comment", user: "Siti Rahayu", content: "Artikel ini sangat informatif, terima kasih!", articleTitle: "Strategi Pemasaran Digital", createdAt: new Date(Date.now() - 86400000 * 2).toISOString() },
+                { type: "favorite", user: "Budi Santoso", content: "Favorit", articleTitle: "Panduan Investasi Pemula", createdAt: new Date(Date.now() - 86400000 * 1).toISOString() },
+                { type: "comment", user: "Dewi Kirana", content: "Apakah ada sumber bacaan lain yang direkomendasikan?", articleTitle: "Tips Menulis Efektif", createdAt: new Date().toISOString() },
+            ];
+
+            // Cek apakah ada data, jika tidak, masukkan dummy data
+            window.firestore.getDocs(interactionsRef).then(snapshot => {
+                if (snapshot.empty) {
+                    dummyInteractions.forEach(interaction => {
+                        window.firestore.addDoc(interactionsRef, interaction);
+                    });
+                }
+            }).catch(e => console.error("Gagal cek/masukkan dummy interactions:", e));
+
+            window.firestore.onSnapshot(interactionsRef, (snapshot) => {
+                const interactions = [];
+                snapshot.forEach(doc => {
+                    interactions.push({ id: doc.id, ...doc.data() });
+                });
+                renderInteractionsList(listElement, interactions.reverse());
+            }, (error) => {
+                console.error("Gagal mendapatkan data interaksi:", error);
+                listElement.innerHTML = `<div class="text-red-500 text-center p-8">Gagal memuat data interaksi: ${error.message}</div>`;
+            });
+        }
+
+        function renderInteractionsList(listElement, interactions) {
+            if (interactions.length === 0) {
+                listElement.innerHTML = '<div class="text-gray-500 text-center p-8">Tidak ada data interaksi terbaru.</div>';
+                return;
+            }
+            listElement.innerHTML = interactions.map(item => {
+                const isComment = item.type === 'comment';
+                const iconColor = isComment ? 'text-maroon' : 'text-red-500';
+                const bgColor = isComment ? 'bg-gray-50' : 'bg-red-50'; // Menggunakan gray-50 untuk tampilan lebih bersih
+                const title = isComment ? 'Komentar' : 'Favorit';
+
+                return `
+                    <div class="p-4 rounded-lg shadow-md flex items-start space-x-4 ${bgColor} border border-gray-200">
+                        <div class="flex-shrink-0">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 ${iconColor}" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                ${isComment ?
+                                    `<path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4v-4z" />` :
+                                    `<path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-.318-.318z" />`
+                                }
+                            </svg>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-gray-800">${title} dari <span class="font-bold">${item.user}</span></p>
+                            <p class="text-sm text-gray-700 mt-1 italic">${item.content}</p>
+                            <p class="text-xs text-gray-500 mt-2">
+                                Pada Artikel: <span class="font-medium text-maroon">${item.articleTitle}</span> |
+                                Waktu: ${new Date(item.createdAt).toLocaleString('id-ID')}
+                            </p>
+                        </div>
+                        <button onclick="window.deleteInteraction('${item.id}')" class="text-sm text-red-600 hover:text-red-800 font-medium p-1 rounded-full hover:bg-red-100 transition duration-200 ml-auto" title="Hapus Interaksi">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm4 0a1 1 0 10-2 0v6a1 1 0 102 0V8z" clip-rule="evenodd"/></svg>
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        window.deleteInteraction = async (id) => {
+             const confirmation = window.prompt(`Ketik "HAPUS" untuk mengonfirmasi penghapusan interaksi ID: ${id}`);
+             if (confirmation === "HAPUS") {
+                try {
+                    const docRef = window.firestore.doc(window.db, window.firestore.getPublicCollectionPath('interactions'), id);
+                    await window.firestore.deleteDoc(docRef);
+                    console.log("Interaksi berhasil dihapus:", id);
+                } catch (e) {
+                    console.error("Gagal menghapus interaksi:", e);
+                }
+             } else if (confirmation !== null) {
+                console.log("Penghapusan interaksi dibatalkan atau konfirmasi salah.");
+             }
+        };
+
+        // --- Utility untuk Notifikasi Kustom (Pengganti alert/confirm) ---
+        function alertMessage(title, message) {
+            const modal = document.createElement('div');
+            modal.className = 'fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4';
+            modal.innerHTML = `
+                <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 space-y-4">
+                    <h3 class="text-xl font-bold text-gray-800">${title}</h3>
+                    <p class="text-gray-600">${message}</p>
+                    <div class="flex justify-end">
+                        <button class="px-4 py-2 bg-maroon hover:bg-maroon-light text-white rounded-lg font-semibold transition duration-200" onclick="this.closest('.fixed').remove()">Tutup</button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        }
+
+        // --- Inisialisasi pada Window Load ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Pasang event listener untuk navigasi
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    window.loadPage(e.currentTarget.dataset.page);
+                });
+            });
+
+            // Mulai proses inisialisasi Firebase
+            if (typeof window.initFirebase !== 'undefined') {
+                window.initFirebase();
+            }
+        });
+
+    </script>
+</head>
+<body class="bg-gray-100 min-h-screen flex">
+
+    <!-- Sidebar Navigasi -->
+    <aside class="w-64 bg-maroon-dark text-white flex-shrink-0">
+        <div class="p-6">
+            <h1 class="text-2xl font-extrabold tracking-wider">EKSPLORA ADMIN</h1>
+            <p id="user-id-display" class="text-xs text-white mt-1 opacity-75 truncate">Memuat...</p>
+        </div>
+        <nav class="mt-8 space-y-2">
+            <a href="#" class="nav-link flex items-center space-x-3 p-4 text-sm font-medium hover:bg-maroon rounded-r-full transition duration-200" data-page="articles">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+                <span>Artikel (CRUD)</span>
+            </a>
+            <a href="#" class="nav-link flex items-center space-x-3 p-4 text-sm font-medium hover:bg-maroon rounded-r-full transition duration-200" data-page="stats">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 3.055A9.001 9.001 0 1020.945 13H11V3.055z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4.05A9.001 9.001 0 0113 5.464M11 4.05v7.95h7.95" /></svg>
+                <span>Statistik & Analisis</span>
+            </a>
+            <a href="#" class="nav-link flex items-center space-x-3 p-4 text-sm font-medium hover:bg-maroon rounded-r-full transition duration-200" data-page="users">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20v-2h2m-2 0h-2M18 12a3 3 0 100-6 3 3 0 000 6zm-9 6a7 7 0 01-14 0 7 7 0 0114 0zM12 4a3 3 0 110 6 3 3 0 010-6z" /></svg>
+                <span>Kelola Pengguna</span>
+            </a>
+            <a href="#" class="nav-link flex items-center space-x-3 p-4 text-sm font-medium hover:bg-maroon rounded-r-full transition duration-200" data-page="interactions">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-.318-.318z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <span>Interaksi (Komen/Fav)</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Konten Utama -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <div id="content-area" class="w-full max-w-4xl mx-auto">
+            <div class="p-12 bg-white rounded-xl shadow-lg text-center">
+                <h2 class="text-3xl font-bold text-gray-800 mb-2">Selamat Datang, Admin!</h2>
+                <p class="text-gray-500 mb-6">Sistem sedang menyiapkan koneksi ke Firebase...</p>
+                <div class="flex justify-center">
+                    <div class="h-8 w-8 border-4 border-gray-300 border-t-maroon rounded-full animate-spin"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>

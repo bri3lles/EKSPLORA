@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Pengguna - Eksplora</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/dashboard_user.css">
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- 1. Header -->
+    <header>
+        <div class="logo">
+            <img src="logo.png">
+            <span>Eksplora</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#daftar-budaya">Daftar Budaya</a></li>
+                <li><a href="#populer">Populer</a></li>
+                <li><a href="#ulasan">Ulasan</a></li>
+                <li><a href="daftar.html" class="btn-daftar"><i class="fa-solid fa-user"></i></a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 2. KONTEN UTAMA & SIDEBAR -->
+    <main class="flex-grow flex">
+        
+        <!-- SIDEBAR (Menu Kiri) -->
+        <aside class="sidebar w-64 h-full flex-shrink-0">
+            <div class="flex flex-col h-full py-6 px-4">
+                <nav class="space-y-1">
+                    
+                    <a href="#" class="sidebar-item active flex items-center group" data-target="profile">
+                        <i data-lucide="user" class="w-5 h-5 primary-color mr-3 fill-current icon-bold"></i>
+                        <span class="primary-color font-semibold">Profile</span>
+                    </a>
+                    
+                    <a href="#" class="sidebar-item flex items-center group" data-target="favorit">
+                        <i data-lucide="bookmark" class="w-5 h-5 primary-color mr-3 fill-current icon-bold"></i>
+                        <span class="primary-color">Favorit</span>
+                    </a>
+                    
+                    <a href="#" class="sidebar-item flex items-center group" data-target="ulasan">
+                        <i data-lucide="message-circle" class="w-5 h-5 primary-color mr-3 fill-current icon-bold"></i>
+                        <span class="primary-color">Ulasan</span>
+                    </a>
+                    
+                    <a href="#" class="sidebar-item flex items-center group" data-target="riwayat">
+                        <i data-lucide="clock" class="w-5 h-5 primary-color mr-3"></i>
+                        <span class="primary-color">Riwayat</span>
+                    </a>
+                </nav>
+
+                <div class="mt-auto pt-4 border-t border-gray-100">
+                    <a href="#" class="sidebar-item flex items-center group" data-target="logout">
+                        <i data-lucide="log-out" class="w-5 h-5 primary-color mr-3 transform rotate-180"></i>
+                        <span class="primary-color">Keluar</span>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- AREA KONTEN UTAMA -->
+        <div id="content-area" class="flex-grow p-8">
+
+            <div id="content-profile" class="tab-content bg-white profile-card rounded-xl p-12 max-w-4xl mx-auto">
+                <div class="mb-10">
+                    <p class="text-sm font-light text-gray-500">Hai,</p>
+                    <h2 class="text-xl font-medium primary-color">Selamat datang Albert Flores</h2>
+                </div>
+
+                <div class="flex flex-col items-center profile-section">
+                    
+                    <img 
+                        src="jacob.jpg" 
+                        onerror="this.onerror=null; this.src='https://i.ibb.co/Gdkb68S/man-with-hat.png';"
+                        alt="Albert Flores Profile Picture" 
+                        class="w-36 h-36 rounded-full object-cover mb-6 shadow-lg border-2 border-gray-100"
+                    >
+                    
+                    <p class="text-xl font-bold text-gray-800 mb-4">Albert Flores</p>
+                    <div class="edit-icon-container flex justify-end px-3"> 
+                        <button class="text-gray-500 hover:text-gray-700 p-1 rounded-full">
+                             <i data-lucide="pencil" class="w-4 h-4 primary-color fill-current icon-bold"></i>
+                        </button>
+                    </div>
+                    <div class="w-full max-w-lg space-y-8 mt-4"> 
+                        
+                        <div>
+                            <label for="nama_akun" class="block text-sm text-gray-600 mb-2">Nama akun :</label>
+                            <input type="text" id="nama_akun" value="Albert Flores" class="input-box text-gray-800" readonly>
+                        </div>
+
+                        <div>
+                            <label for="email" class="block text-sm text-gray-600 mb-2">Email :</label>
+                            <input type="email" id="email" value="tanya.hill@example.com" class="input-box text-gray-800" readonly>
+                        </div>
+                        <div>
+                            <label for="sandi" class="block text-sm text-gray-600 mb-2">Sandi :</label>
+                            <input type="password" id="sandi" value="********" class="input-box text-gray-800" readonly>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- KONTEN 2: FAVORIT -->
+            <div id="content-favorit" class="tab-content hidden bg-white profile-card rounded-xl p-8 max-w-4xl mx-auto relative">
+                <div class="flex justify-end mb-8">
+                    <button id="btn-favorit-delete" class="text-sm font-semibold primary-color hover:text-red-500 active:text-red-700 flex items-center p-2 transition duration-100 cursor-pointer" onclick="handleDeleteAction('favorit')">
+                        <span class="mr-1">Hapus</span>
+                        <i data-lucide="trash-2" class="w-4 h-4 primary-color fill-current icon-bold"></i>
+                    </button>
+                </div>
+                <div class="grid grid-cols-2 gap-6" id="favorit-list">
+                    <div class="favorite-card bg-white rounded-lg overflow-hidden shadow-lg p-4 flex border-gray-200" data-id="fav-1">
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.favorite-card'))">
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <img 
+                            src="karapi1.jpg"
+                            onerror="this.onerror=null; this.src='https://i.ibb.co/L8y2k6J/karapan-sapi.png';" 
+                            alt="Karapan Sapi" 
+                            class="w-32 h-32 object-cover rounded-md mr-4"
+                        >
+                        <div class="flex-grow relative">
+                            <i 
+  id="bookmarkIcon" 
+  data-lucide="bookmark" 
+  class="w-4 h-4 absolute top-0 right-0 text-gray-500 hover:text-yellow-500 fill-current cursor-pointer"
+></i>
+                            
+                            <h3 class="text-md font-bold primary-color mb-1">Karapan Sapi</h3>
+                            <p class="text-xs text-gray-600 mb-3">
+                                Tradisi pacuan sapi yang berasal dari Madura. Acara ini merupakan simbol identitas budaya masyarakatnya.
+                            </p>
+                            <button class="primary-bg text-white text-xs font-semibold py-1 px-3 rounded-full absolute bottom-0 right-0 hover:opacity-90">
+                                Baca
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- KARTU 2: TARI BESKALAN -->
+                    <div class="favorite-card bg-white rounded-lg overflow-hidden shadow-lg p-4 flex border-gray-200" data-id="fav-2">
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.favorite-card'))">
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <img 
+                            src="tarbes.jpg" 
+                            onerror="this.onerror=null; this.src='https://i.ibb.co/31510yW/tari-beskalan.png';"
+                            alt="Tari Beskalan" 
+                            class="w-32 h-32 object-cover rounded-md mr-4"
+                        >
+                        <div class="flex-grow relative">
+                            <i 
+  id="bookmarkIcon" 
+  data-lucide="bookmark" 
+  class="w-4 h-4 absolute top-0 right-0 text-gray-500 hover:text-yellow-500 fill-current cursor-pointer"
+></i>
+
+                            <h3 class="text-md font-bold primary-color mb-1">Tari Beskalan</h3>
+                            <p class="text-xs text-gray-600 mb-3">
+                                Tari tradisional dari Malang, Jawa Timur. Tarian penyambutan dengan gerakan lincah dan penuh semangat.
+                            </p>
+                            <button class="primary-bg text-white text-xs font-semibold py-1 px-3 rounded-full absolute bottom-0 right-0 hover:opacity-90">
+                                Baca
+                            </button>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <!-- KONTEN 3: ULASAN -->
+            <div id="content-ulasan" class="tab-content hidden bg-white profile-card rounded-xl p-8 max-w-4xl mx-auto relative">
+                
+                <div class="flex justify-end mb-8">
+                    <button id="btn-ulasan-delete" class="text-sm font-semibold primary-color hover:text-red-500 active:text-red-700 flex items-center p-2 transition duration-100 cursor-pointer" onclick="handleDeleteAction('ulasan')">
+                        <span class="mr-1">Hapus</span>
+                        <i data-lucide="trash-2" class="w-4 h-4 primary-color fill-current icon-bold"></i>
+                    </button>
+                </div>
+                
+                <div class="space-y-6" id="ulasan-list">
+                    <div class="review-card bg-white p-6 rounded-lg" data-id="rev-1">
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.review-card'))">
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <div class="review-card-header flex justify-between items-center pb-2 mb-3">
+                            <div>
+                                <h3 class="text-base font-bold primary-color">Tari Beskalan</h3>
+                                <p class="text-xs text-gray-500">Malang, Jawa Timur</p>
+                            </div>
+                            <div class="flex items-center text-xs text-gray-600">
+                                <span class="font-light">| 22/02/2024</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Pementasan Tari Beskalan sangat memukau! Gerakannya lincah dan enerjik. Kostum penari juga indah dan sangat autentik. Saya merasa terhibur dan mendapatkan wawasan baru tentang budaya Malang. Sangat direkomendasikan untuk dilihat!
+                        </p>
+                    </div>
+                    
+                    <div class="review-card bg-white p-6 rounded-lg" data-id="rev-2">
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.review-card'))">
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <div class="review-card-header flex justify-between items-center pb-2 mb-3">
+                            <div>
+                                <h3 class="text-base font-bold primary-color">Karapan Sapi</h3>
+                                <p class="text-xs text-gray-500">Madura, Jawa Timur</p>
+                            </div>
+                            <div class="flex items-center text-xs text-gray-600">
+                                <span class="font-light">| 15/01/2024</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            Pengalaman yang luar biasa menyaksikan Karapan Sapi secara langsung! Adrenalin terpacu melihat kecepatan sapi-sapi itu. Tradisi ini sangat unik dan menarik. Meskipun sedikit ramai, suasana yang ditawarkan benar-benar tak terlupakan.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+            
+            <!-- KONTEN 4: RIWAYAT (Hidden by default) - Mode Seleksi Diaktifkan di sini -->
+            <div id="content-riwayat" class="tab-content hidden bg-white profile-card rounded-xl p-8 max-w-4xl mx-auto relative">
+                
+                <!-- Tombol Hapus: Area klik diperbesar (p-2) -->
+                <div class="flex justify-end mb-8">
+                    <button id="btn-riwayat-delete" class="text-sm font-semibold primary-color hover:text-red-500 active:text-red-700 flex items-center p-2 transition duration-100 cursor-pointer" onclick="handleDeleteAction('riwayat')">
+                        <span class="mr-1">Hapus</span>
+                        <i data-lucide="trash-2" class="w-4 h-4 primary-color fill-current icon-bold"></i>
+                    </button>
+                </div>
+                
+                <!-- Riwayat Pencarian -->
+                <div class="space-y-4" id="riwayat-list">
+                    
+                    <!-- Riwayat Item 1 -->
+                    <div class="history-item-box p-3 px-4" data-id="hist-1">
+                        <!-- Kontrol Seleksi (Tersembunyi secara default) -->
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.history-item-box'))">
+                             <!-- Ikon circle default (satu garis tipis) -->
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <span class="text-sm text-gray-700">kebudayaan di malang</span>
+                        <!-- Ikon Pencarian -->
+                        <i data-lucide="search" class="w-4 h-4 text-gray-500"></i>
+                    </div>
+
+                    <!-- Riwayat Item 2 -->
+                    <div class="history-item-box p-3 px-4" data-id="hist-2">
+                         <!-- Kontrol Seleksi (Tersembunyi secara default) -->
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.history-item-box'))">
+                             <!-- Ikon circle default (satu garis tipis) -->
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <span class="text-sm text-gray-700">kebudayaan di malang</span>
+                        <!-- Ikon Pencarian -->
+                        <i data-lucide="search" class="w-4 h-4 text-gray-500"></i>
+                    </div>
+
+                    <!-- Riwayat Item 3 -->
+                    <div class="history-item-box p-3 px-4" data-id="hist-3">
+                         <!-- Kontrol Seleksi (Tersembunyi secara default) -->
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.history-item-box'))">
+                             <!-- Ikon circle default (satu garis tipis) -->
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <span class="text-sm text-gray-700">kebudayaan di malang</span>
+                        <!-- Ikon Pencarian -->
+                        <i data-lucide="search" class="w-4 h-4 text-gray-500"></i>
+                    </div>
+
+                    <!-- Riwayat Item 4 -->
+                    <div class="history-item-box p-3 px-4" data-id="hist-4">
+                         <!-- Kontrol Seleksi (Tersembunyi secara default) -->
+                        <div class="selection-control hidden" onclick="toggleSelection(this.closest('.history-item-box'))">
+                             <!-- Ikon circle default (satu garis tipis) -->
+                             <i data-lucide="circle" class="selection-icon bg-white rounded-full transition"></i>
+                        </div>
+                        <span class="text-sm text-gray-700">kebudayaan di malang</span>
+                        <!-- Ikon Pencarian -->
+                        <i data-lucide="search" class="w-4 h-4 text-gray-500"></i>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- KONTEN 5: LOGOUT (Hidden by default) - Placeholder Sederhana -->
+            <div id="content-logout" class="tab-content hidden bg-white profile-card rounded-xl p-8 max-w-4xl mx-auto">
+                <div class="text-center p-12">
+                    <i data-lucide="log-out" class="w-12 h-12 mx-auto primary-color mb-4"></i>
+                    <h2 class="text-xl font-semibold text-gray-700 mb-4">Anda yakin ingin Keluar?</h2>
+                    <button class="primary-bg text-white font-bold py-2 px-6 rounded-lg hover:opacity-90 transition duration-150">
+                        Ya, Keluar Sekarang
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+    
+    <!-- Notifikasi/Message Box Area (Tersembunyi secara default) -->
+    <div id="notification-container" class="fixed top-4 right-4 z-50 space-y-2 pointer-events-none">
+        <!-- Notifikasi akan dimasukkan di sini oleh JavaScript -->
+    </div>
+
+    <!-- Logika JavaScript untuk mengontrol pergantian tab/konten & Mode Seleksi -->
+    <script>
+        // Inisialisasi ikon Lucide
+        lucide.createIcons();
+        
+        // State untuk melacak mode seleksi
+        let isSelectionMode = false;
+        let currentTabId = 'profile'; // Lacak tab yang aktif
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebarItems = document.querySelectorAll('.sidebar-item');
+            const contentTabs = document.querySelectorAll('.tab-content');
+            
+            // Fungsi untuk menampilkan konten yang sesuai
+            const showContent = (targetId) => {
+                // Sembunyikan semua konten tab
+                contentTabs.forEach(tab => tab.classList.add('hidden'));
+                
+                // Tampilkan konten yang dituju
+                const targetContent = document.getElementById(`content-${targetId}`);
+                if (targetContent) {
+                    targetContent.classList.remove('hidden');
+                }
+                
+                currentTabId = targetId;
+                // Reset mode seleksi setiap kali tab berpindah (kecuali logout/profile)
+                if (targetId !== 'profile' && targetId !== 'logout') {
+                    resetSelectionMode(targetId);
+                }
+            };
+
+            // Fungsi untuk menangani klik pada sidebar
+            sidebarItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault(); 
+                    
+                    const target = item.getAttribute('data-target');
+                    
+                    // 1. Kelola status 'active' di sidebar
+                    sidebarItems.forEach(i => {
+                        i.classList.remove('active');
+                        i.querySelector('span').classList.remove('font-semibold');
+                    });
+                    item.classList.add('active');
+                    item.querySelector('span').classList.add('font-semibold');
+
+                    // 2. Tampilkan konten yang sesuai
+                    showContent(target);
+
+                    if (target === 'logout') {
+                        console.log("Simulasi proses keluar.");
+                    }
+                });
+            });
+
+            // Pastikan konten 'profile' ditampilkan saat halaman dimuat (default)
+            showContent('profile');
+        });
+
+// Ambil elemen ikon berdasarkan ID-nya
+    const icon = document.getElementById('bookmarkIcon');
+
+    // Tambahkan 'event listener' untuk mendeteksi klik
+    icon.addEventListener('click', function() {
+        // Cek apakah ikon sudah berwarna kuning
+        const isCurrentlyYellow = this.classList.contains('text-yellow-500');
+
+        if (isCurrentlyYellow) {
+            // Jika sudah kuning (aktif), ubah kembali menjadi abu-abu (tidak aktif)
+            this.classList.remove('text-yellow-500');
+            this.classList.add('text-gray-500');
+            // Opsional: Tambahkan kembali efek hover
+            this.classList.add('hover:text-yellow-500');
+        } else {
+            // Jika masih abu-abu (tidak aktif), ubah menjadi kuning (aktif)
+            this.classList.remove('text-gray-500');
+            this.classList.add('text-yellow-500');
+            // Opsional: Hapus efek hover agar warnanya tidak berubah-ubah saat disorot setelah diklik
+            this.classList.remove('hover:text-yellow-500');
+        }
+    });
+
+        /**
+         * Mengaktifkan atau menonaktifkan mode seleksi.
+         * @param {string} tabId - ID tab saat ini (favorit, ulasan, riwayat).
+         */
+        function toggleSelectionMode(tabId) {
+            isSelectionMode = !isSelectionMode;
+            const contentContainer = document.getElementById(`content-${tabId}`);
+            const deleteButton = document.getElementById(`btn-${tabId}-delete`);
+            
+            // Dapatkan semua kontrol seleksi dalam tab
+            const selectionControls = contentContainer.querySelectorAll('.selection-control');
+            
+            if (isSelectionMode) {
+                // Aktifkan mode seleksi: Tampilkan ikon dan ubah teks tombol
+                deleteButton.querySelector('span').textContent = 'Hapus Terpilih';
+                deleteButton.classList.remove('primary-color');
+                deleteButton.classList.add('text-red-600', 'hover:text-red-500');
+
+                selectionControls.forEach(control => control.classList.remove('hidden'));
+                showNotification('Mode Seleksi Aktif. Pilih item yang ingin dihapus.', 'info');
+
+            } else {
+                // Nonaktifkan mode seleksi: Sembunyikan ikon dan ubah teks tombol kembali
+                deleteButton.querySelector('span').textContent = 'Hapus';
+                deleteButton.classList.remove('text-red-600', 'hover:text-red-500');
+                deleteButton.classList.add('primary-color');
+
+                selectionControls.forEach(control => {
+                    control.classList.add('hidden');
+                    // Pastikan item tidak lagi memiliki kelas 'selected' dan ikon direset
+                    const item = control.closest('[data-id]');
+                    item.classList.remove('selected');
+                    control.querySelector('.selection-icon').setAttribute('data-lucide', 'circle');
+                    
+                });
+                
+                showNotification('Mode Seleksi Dinonaktifkan.', 'info');
+            }
+            lucide.createIcons(); // Pastikan ikon baru ter-render
+        }
+
+        /**
+         * Menandai atau menghapus tanda seleksi pada item.
+         * @param {HTMLElement} item - Elemen card/item yang diklik (favorite-card, review-card, history-item-box).
+         */
+        function toggleSelection(item) {
+            const isSelected = item.classList.toggle('selected');
+            const iconElement = item.querySelector('.selection-icon');
+            
+            if (isSelected) {
+                // Ganti ikon dari 'circle' menjadi 'check-circle'
+                iconElement.setAttribute('data-lucide', 'check-circle');
+            } else {
+                // Ganti ikon dari 'check-circle' menjadi 'circle'
+                iconElement.setAttribute('data-lucide', 'circle');
+            }
+            lucide.createIcons(); // Perlu me-render ulang ikon
+
+            // Logika sederhana untuk memastikan ikon trash di tombol delete tetap muncul
+            const deleteIcon = document.getElementById(`btn-${currentTabId}-delete`).querySelector('[data-lucide="trash-2"]');
+            if (deleteIcon) {
+                // Memastikan ikon trash tetap ter-render saat ikon lain diperbarui
+                lucide.createIcons();
+            }
+        }
+
+        /**
+         * Fungsi utama yang dipanggil saat tombol Hapus diklik.
+         * Mengaktifkan mode seleksi ATAU menghapus item terpilih.
+         * @param {string} tabId - ID tab saat ini (favorit, ulasan, riwayat).
+         */
+        function handleDeleteAction(tabId) {
+            const contentContainer = document.getElementById(`content-${tabId}`);
+            const selectedItems = contentContainer.querySelectorAll('.selected');
+            
+            if (isSelectionMode && selectedItems.length > 0) {
+                // Mode Hapus Terpilih: Langsung hapus (tanpa confirm)
+                deleteSelectedItems(selectedItems, tabId); 
+                // Setelah penghapusan, nonaktifkan mode seleksi
+                toggleSelectionMode(tabId);
+            } else if (isSelectionMode && selectedItems.length === 0) {
+                 // Tidak ada yang dipilih, nonaktifkan mode seleksi
+                 toggleSelectionMode(tabId);
+            } else {
+                // Aktifkan Mode Seleksi
+                toggleSelectionMode(tabId);
+            }
+        }
+        
+        /**
+         * Menghapus elemen yang terpilih dari DOM dan menampilkan notifikasi.
+         * @param {NodeList} items - Daftar elemen yang memiliki kelas 'selected'.
+         * @param {string} tabId - ID tab saat ini.
+         */
+        function deleteSelectedItems(items, tabId) {
+            items.forEach(item => {
+                // Hapus item dari tampilan
+                item.remove();
+            });
+            showNotification(`${items.length} item berhasil dihapus dari ${tabId.charAt(0).toUpperCase() + tabId.slice(1)}!`, 'success');
+        }
+
+        /**
+         * Memastikan mode seleksi mati saat berpindah tab.
+         * @param {string} tabId - ID tab yang baru.
+         */
+         function resetSelectionMode(tabId) {
+            if (isSelectionMode) {
+                // Paksa nonaktifkan mode seleksi jika sedang aktif di tab sebelumnya
+                isSelectionMode = true; // Set ke true agar toggleSelectionMode bisa mematikan
+                toggleSelectionMode(tabId);
+            }
+         }
+         
+        /**
+         * Menampilkan notifikasi sementara sebagai pengganti alert/confirm.
+         * @param {string} message - Pesan yang akan ditampilkan.
+         * @param {string} type - 'success', 'error', atau 'info'.
+         */
+        function showNotification(message, type) {
+            const container = document.getElementById('notification-container');
+            
+            let bgColor = 'bg-green-600';
+            if (type === 'error') bgColor = 'bg-red-600';
+            if (type === 'info') bgColor = 'bg-blue-600';
+            
+            // Menggunakan warna yang lebih sesuai dengan tema (Maroon untuk info)
+            if (type === 'info') bgColor = 'bg-[#501006]'; 
+
+            const notification = document.createElement('div');
+            notification.className = `${bgColor} text-white p-4 rounded-lg shadow-xl text-sm transition-all duration-300 ease-out transform translate-x-full opacity-0 max-w-xs`;
+            notification.textContent = message;
+
+            container.appendChild(notification);
+            
+            // Animasi masuk
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full', 'opacity-0');
+            }, 10);
+
+            // Animasi keluar dan hapus
+            setTimeout(() => {
+                notification.classList.add('translate-x-full', 'opacity-0');
+                notification.addEventListener('transitionend', () => notification.remove());
+            }, 3000); // Tampilkan selama 3 detik
+        }
+    </script>
+</body>
+</html>

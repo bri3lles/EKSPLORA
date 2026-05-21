@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Artikel Karapan Sapi</title>
+    <!-- Memuat Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Memuat Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" 
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" 
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" 
+          crossorigin="anonymous" 
+          referrerpolicy="no-referrer" />
+    
+    <link rel="stylesheet" href="css/detailkarapi.css">
+
+</head>
+
+<body class="min-h-screen flex flex-col">
+
+    <header>
+        <div class="logo">
+            <img src="logo.png">
+            <span>Eksplora</span>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#beranda">Beranda</a></li>
+                <li><a href="#daftar-budaya">Daftar Budaya</a></li>
+                <li><a href="#populer">Populer</a></li>
+                <li><a href="#ulasan">Ulasan</a></li>
+                <li><a href="daftar.html" class="btn-daftar">Daftar</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="flex-grow p-0">
+
+        <div
+            class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-[1.2fr_2fr] gap-6 px-4 sm:px-6 lg:px-8 mb-8 pt-4 main-content-grid">
+            <div class="primary-bg p-4 sm:p-6 space-y-4 flex flex-col items-center rounded-xl overflow-hidden h-full">
+                <div class="w-full rounded-lg overflow-hidden shadow-lg">
+                    <img src="karapi1.jpg"
+                        onerror="this.onerror=null; this.src='https://placehold.co/800x600/501006/FFFFFF?text=Gambar+Atas';"
+                        alt="Karapan Sapi di Pantai" class="w-full h-auto object-cover rounded-lg"
+                        style="height: 35vh; object-position: center bottom;">
+                </div>
+
+                <div class="w-full rounded-lg overflow-hidden shadow-lg">
+                    <img src="karapi2.jpeg"
+                        onerror="this.onerror=null; this.src='https://placehold.co/800x533/501006/FFFFFF?text=Gambar+Tengah';"
+                        alt="Proses Lomba Karapan Sapi" class="w-full h-auto object-cover rounded-lg"
+                        style="height: 35vh; object-position: center center;">
+                </div>
+            </div>
+            <div class="flex flex-col overflow-hidden h-full">
+                <div class="flex justify-end items-center mb-3">
+
+                    <div class="flex space-x-2">
+                        <button id="favorite-btn" onclick="toggleFavorite(this)"
+    class="p-1 rounded-full hover:bg-gray-200 transition duration-150">
+    <i class="fas fa-bookmark w-6 h-6 primary-color transition-all duration-300"></i>
+</button>
+
+                        <!-- Ikon Komentar -->
+                        <button onclick="openCommentModal()"
+    class="p-1 rounded-full hover:bg-gray-200 transition duration-150 primary-color">
+    <i class="fa-solid fa-comment"></i> 
+</button>
+                    </div>
+                </div>
+                <h1 class="text-3xl font-extrabold primary-color mb-3 px-1">Karapan Sapi</h1>
+                <div class="bg-white shadow-xl rounded-xl p-4 sm:p-6 flex flex-col overflow-hidden h-full">
+                    <div class="article-content-scroll flex-grow">
+
+                        <!-- 1. Pengertian Karapan Sapi -->
+                        <h3>Pengertian Karapan Sapi</h3>
+                        <p>
+                            Karapan Sapi adalah perlombaan pacuan sapi yang berasal dari Madura, Jawa Timur. Dua ekor
+                            sapi jantan dipasangkan menjadi satu tim, kemudian dipacu berlari secepat mungkin menarik
+                            kereta kayu (kaleles) yang ditunggangi seorang joki. Tradisi ini bukan sekadar hiburan,
+                            melainkan sarat nilai budaya, sosial, dan religius bagi masyarakat Madura.
+                        </p>
+
+                        <h3>Asal-usul dan Sejarah</h3>
+                        <p>
+                            Tradisi Karapan Sapi diperkirakan muncul sejak abad ke-14. Menurut cerita, Karapan Sapi
+                            dikenalkan oleh Pangeran Katandur, seorang ulama dari Sumenep, yang membawa sistem pertanian
+                            dengan membajak sawah menggunakan sapi. Untuk memotivasi masyarakat, beliau mengadakan
+                            perlombaan adu cepat sapi. Dari sinilah lahir tradisi Karapan Sapi. Seiring waktu, Karapan
+                            Sapi berkembang dari lomba rakyat sederhana menjadi pertunjukan besar yang disertai pesta
+                            rakyat.
+                        </p>
+
+                        <h3>Waktu dan Tempat Pelaksanaan</h3>
+                        <ul>
+                            <li>Tempat: Lapangan pacuan khusus (panjang lintasan sekitar 100 meter, lebar 20 meter).
+                            </li>
+                            <li>Waktu: Biasanya diadakan setiap tahun antara bulan Agustus–Oktober, saat musim panen
+                                usai.</li>
+                            <li>Puncak acara: disebut Karapan Sapi Piala Presiden di Pamekasan, yang diikuti para juara
+                                dari seluruh Madura.</li>
+                        </ul>
+
+                        <h3>Proses Karapan Sapi</h3>
+                        <ol>
+                            <li>Persiapan Sapi:
+                                <ul>
+                                    <li>Sapi dipelihara khusus dengan makanan bergizi (jagung muda, telur, jamu
+                                        tradisional).</li>
+                                    <li>Sapi dimandikan dan dirawat dengan penuh perhatian, bahkan seperti “raja kecil”
+                                        bagi pemiliknya.</li>
+                                </ul>
+                            </li>
+                            <li>Pemilihan Pasangan Sapi:
+                                <ul>
+                                    <li>Sapi dipasangkan berdua, harus seimbang dalam kekuatan dan kecepatan.</li>
+                                    <li>Pasangan ini disebut kaleles.</li>
+                                </ul>
+                            </li>
+                            <li>Perlengkapan:
+                                <ul>
+                                    <li>Kaleles (kereta kayu) sebagai tempat joki berdiri.</li>
+                                    <li>Tali pengikat untuk mengendalikan sapi.</li>
+                                    <li>Alat pemecut (cemeti khas Madura) untuk memacu laju sapi.</li>
+                                </ul>
+                            </li>
+                            <li>Pelaksanaan:
+                                <ul>
+                                    <li>Dua tim sapi bertanding berlari dalam lintasan lurus.</li>
+                                    <li>Pemenang ditentukan dari kecepatan dan kekompakan pasangan sapi.</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <h3>Iringan dan Tradisi Pendukung</h3>
+                        <p>
+                            Karapan Sapi tidak hanya perlombaan, tapi juga pesta budaya. Saronen (musik tradisional
+                            Madura) dimainkan untuk menyemarakkan suasana. Ada arak-arakan sebelum lomba: sapi dihias
+                            indah dengan ornamen warna-warni, kain sutra, dan kalung bunga. Pemilik sapi biasanya
+                            memakai busana adat Madura: baju hitam, odheng (ikat kepala), dan sarung khas.
+                        </p>
+
+                        <h3>Makna Filosofis Karapan Sapi</h3>
+                        <ul>
+                            <li>Semangat Gotong Royong: melibatkan banyak pihak, dari pemilik sapi, pelatih, joki,
+                                hingga pendukung desa.</li>
+                            <li>Prestise Sosial: bagi pemilik sapi, kemenangan adalah kebanggaan dan meningkatkan status
+                                sosial.</li>
+                            <li>Doa dan Syukur: awalnya dilaksanakan setelah panen sebagai ungkapan syukur pada Tuhan.
+                            </li>
+                            <li>Sportivitas: mengajarkan persaingan sehat dan kerja sama antarwarga.</li>
+                            <li>Identitas Budaya: menjadi simbol keunikan budaya Madura.</li>
+                        </ul>
+
+                        <h3>Kategori Karapan Sapi</h3>
+                        <ul>
+                            <li>Karapan Sapi Kecil (Keni’): untuk sapi muda, sebagai ajang latihan.</li>
+                            <li>Karapan Sapi Besar (Raja): untuk sapi dewasa, biasanya jadi tontonan utama.</li>
+                            <li>Karapan Sapi Prestise: tingkat kabupaten hingga final di Pamekasan (Piala Presiden).
+                            </li>
+                        </ul>
+
+                        <h3>Nilai Sosial-Ekonomi</h3>
+                        <ul>
+                            <li>Ekonomi: memicu perputaran ekonomi lokal, mulai dari peternakan sapi, pedagang, hingga
+                                wisata.</li>
+                            <li>Sosial: mempererat hubungan antarwarga, menjadi ajang silaturahmi.</li>
+                            <li>Budaya: memperkuat identitas Madura di mata nasional maupun internasional.</li>
+                        </ul>
+
+                        <h3>Kritik dan Tantangan</h3>
+                        <ul>
+                            <li>Perlakuan terhadap sapi: ada kritik dari aktivis hewan tentang cara pemacuannya yang
+                                dianggap menyakitkan.</li>
+                            <li>Modernisasi: generasi muda lebih banyak tertarik pada hiburan modern.</li>
+                            <li>Pariwisata: tantangan menjaga agar Karapan Sapi tidak hanya jadi tontonan komersial,
+                                tetapi tetap sarat makna budaya.</li>
+                        </ul>
+
+                        <h3>Upaya Pelestarian</h3>
+                        <ul>
+                            <li>Pemerintah Madura dan Jawa Timur menjadikan Karapan Sapi sebagai warisan budaya
+                                takbenda.</li>
+                            <li>Diadakan secara rutin dan masuk dalam agenda wisata budaya.</li>
+                            <li>Dihias dan ditampilkan dalam bentuk festival budaya agar lebih ramah pariwisata.</li>
+                            <li>Dilestarikan dengan tetap mempertahankan nilai tradisi dan mengurangi praktik yang
+                                merugikan hewan.</li>
+                        </ul>
+
+                        <h3>Kesimpulan</h3>
+                        <p>
+                            Karapan Sapi adalah tradisi pacuan sapi khas Madura yang sarat makna budaya, sosial, dan
+                            religius. Lebih dari sekadar lomba kecepatan sapi, Karapan Sapi merupakan pesta rakyat yang
+                            menampilkan semangat gotong royong, prestise sosial, doa syukur, serta identitas budaya
+                            Madura. Dengan musik saronen, hiasan meriah, dan semangat masyarakat, Karapan Sapi terus
+                            menjadi simbol kebanggaan Madura sekaligus daya tarik budaya Indonesia.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- MODAL KOMENTAR (Gaya TikTok) -->
+    <div id="commentModal" class="fixed inset-0 z-50 bg-black bg-opacity-50 flex items-end hidden">
+        <div class="comment-modal bg-white w-full rounded-t-2xl shadow-2xl flex flex-col h-3/4 max-h-[80vh]">
+
+            <!-- Header Modal -->
+            <div class="flex-shrink-0 p-4 border-b border-gray-100 flex justify-between items-center">
+                <span class="text-lg font-bold text-gray-800">123 Komentar</span>
+                <button onclick="closeCommentModal()" class="text-gray-500 hover:text-gray-800 p-1">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <!-- Daftar Komentar (Scrollable) -->
+            <div class="flex-grow overflow-y-auto p-4 space-y-4">
+
+                <!-- Contoh Komentar 1 -->
+                <div class="flex items-start space-x-3">
+                    <img src="https://placehold.co/40x40/501006/FFFFFF?text=A" alt="Avatar"
+                        class="w-8 h-8 rounded-full flex-shrink-0 primary-bg">
+                    <div class="flex-grow">
+                        <p class="text-sm font-semibold text-gray-800">Amelia_Jawa <span
+                                class="text-xs font-normal text-gray-500 ml-2">2 hari lalu</span></p>
+                        <p class="text-sm text-gray-700 mt-0.5">Keren sekali! Budaya Indonesia memang luar biasa kaya.
+                            Kapan lagi diadakan ya?</p>
+                        <div class="flex items-center text-xs text-gray-500 mt-1 space-x-3">
+                            <span class="cursor-pointer hover:text-primary-color">Balas</span>
+                            <span class="flex items-center">
+                                <i data-lucide="heart" class="w-3 h-3 mr-1"></i> 12
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contoh Komentar 2 -->
+                <div class="flex items-start space-x-3">
+                    <img src="https://placehold.co/40x40/1f2937/FFFFFF?text=B" alt="Avatar"
+                        class="w-8 h-8 rounded-full flex-shrink-0 bg-gray-700">
+                    <div class="flex-grow">
+                        <p class="text-sm font-semibold text-gray-800">Bagus_MDR <span
+                                class="text-xs font-normal text-gray-500 ml-2">1 hari lalu</span></p>
+                        <p class="text-sm text-gray-700 mt-0.5">Saya pernah nonton langsung, atmosfirnya luar biasa
+                            tegang dan meriah! 👍</p>
+                        <div class="flex items-center text-xs text-gray-500 mt-1 space-x-3">
+                            <span class="cursor-pointer hover:text-primary-color">Balas</span>
+                            <span class="flex items-center">
+                                <i data-lucide="heart" class="w-3 h-3 mr-1"></i> 5
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Lebih banyak komentar placeholder untuk scroll -->
+                <div class="h-[200px] text-center text-gray-400 pt-10">... Teks lebih banyak komentar ...</div>
+            </div>
+
+            <!-- Input Komentar -->
+            <div class="flex-shrink-0 p-4 border-t border-gray-100">
+                <div class="flex items-center space-x-3">
+                    <img src="https://placehold.co/40x40/fcd34d/501006?text=Anda" alt="Your Avatar"
+                        class="w-8 h-8 rounded-full flex-shrink-0 bg-yellow-300">
+                    <input type="text" placeholder="Tambahkan komentar Anda..."
+                        class="flex-grow p-2 rounded-full bg-gray-100 border-none focus:ring-1 focus:ring-primary-color text-sm outline-none">
+                    <button class="p-2 primary-color hover:text-primary-bg transition duration-150">
+                        <i data-lucide="send" class="w-6 h-6"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Logika JavaScript -->
+    <script>
+        // Inisialisasi ikon Lucide
+        lucide.createIcons();
+
+        // --- LOGIKA FAVORIT (Placeholder) ---
+        /**
+         * Mengubah status ikon favorit (bookmark)
+         * @param {HTMLElement} button - Tombol yang diklik
+         */
+        function toggleFavorite(button) {
+            // Cari elemen ikon <i> di dalam tombol
+            const icon = button.querySelector('i');
+
+            if (!icon) {
+                console.error("Ikon bookmark tidak ditemukan di dalam tombol.");
+                return;
+            }
+
+            // Lucide Icons membuat elemen SVG di dalam <i>
+            const svg = icon.querySelector('svg');
+
+            if (!svg) {
+                console.error("Elemen SVG ikon bookmark tidak ditemukan.");
+                return;
+            }
+
+            // Kelas yang digunakan untuk membuat ikon terlihat 'terisi penuh' (solid)
+            // Kita akan menggunakan fill-current dan text-yellow-400 untuk mengisi warna, 
+            // dan mengatur stroke menjadi 'none' atau warna yang sama agar tidak terlihat garis putih di dalam
+            const isFavorite = svg.classList.contains('fill-yellow-400');
+
+            if (isFavorite) {
+                // Hapus dari Favorit: Hapus warna fill dan kembalikan ke outline
+                svg.classList.remove('fill-yellow-400', 'text-yellow-400'); // Hapus fill
+                svg.classList.add('primary-color'); // Kembalikan warna stroke
+                showNotification('Dihapus dari Favorit', 'info');
+            } else {
+                // Tambahkan ke Favorit: Tambahkan warna fill dan warna stroke
+                // Dengan mengatur fill dan stroke (text color) ke warna yang sama (kuning),
+                // ikon Lucide 'bookmark' standar akan terlihat terisi penuh.
+                svg.classList.add('fill-yellow-400', 'text-yellow-400'); // Tambahkan fill dan atur stroke/color
+                svg.classList.remove('primary-color'); // Hapus warna primary (Dark Maroon)
+                showNotification('Ditambahkan ke Favorit!', 'success');
+            }
+        }
+
+        // --- LOGIKA MODAL KOMENTAR ---
+        const modal = document.getElementById('commentModal');
+
+        function openCommentModal() {
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('.comment-modal').classList.add('open');
+            }, 10);
+        }
+
+        function closeCommentModal() {
+            modal.querySelector('.comment-modal').classList.remove('open');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+            }, 300); // Harus sesuai dengan durasi transisi CSS
+        }
+
+        // Tambahkan listener untuk menutup modal jika mengklik background gelap
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeCommentModal();
+            }
+        });
+
+        // --- LOGIKA NOTIFIKASI (Pengganti alert) ---
+        /**
+         * Menampilkan notifikasi sementara.
+         */
+        function showNotification(message, type) {
+            const container = document.getElementById('notification-container') || createNotificationContainer();
+
+            let bgColor = 'bg-green-600';
+            if (type === 'error') bgColor = 'bg-red-600';
+            if (type === 'info') bgColor = 'bg-gray-700'; /* Mengganti primary-bg untuk notif agar lebih netral */
+
+            const notification = document.createElement('div');
+            notification.className = `${bgColor} text-white p-3 rounded-lg shadow-xl text-sm transition-all duration-300 ease-out transform translate-x-full opacity-0 max-w-xs`;
+            notification.textContent = message;
+
+            container.appendChild(notification);
+
+            // Animasi masuk
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full', 'opacity-0');
+            }, 10);
+
+            // Animasi keluar dan hapus
+            setTimeout(() => {
+                notification.classList.add('translate-x-full', 'opacity-0');
+                notification.addEventListener('transitionend', () => notification.remove());
+            }, 3000);
+        }
+
+        /**
+         * Membuat kontainer notifikasi jika belum ada.
+         */
+        function createNotificationContainer() {
+            const container = document.createElement('div');
+            container.id = 'notification-container';
+            container.className = 'fixed top-4 right-4 z-50 space-y-2 pointer-events-none';
+            document.body.appendChild(container);
+            return container;
+        }
+
+    </script>
+</body>
+
+</html>
