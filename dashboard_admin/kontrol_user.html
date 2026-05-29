@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Kontrol User — Jatim Heritage Admin</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed-dim":           "#c9c6c1",
+            "primary-fixed":                 "#ffdad3",
+            "tertiary-container":            "#282825",
+            "on-tertiary-fixed-variant":     "#474743",
+            "inverse-primary":               "#ffb4a6",
+            "on-primary-fixed":              "#3f0400",
+            "primary-container":             "#501006",
+            "on-secondary":                  "#ffffff",
+            "surface-container-high":        "#efe6e4",
+            "secondary-fixed":               "#e6e2dd",
+            "inverse-on-surface":            "#f8efed",
+            "tertiary-fixed-dim":            "#c9c6c1",
+            "inverse-surface":               "#342f2f",
+            "error-container":               "#ffdad6",
+            "primary":                       "#2f0200",
+            "on-tertiary":                   "#ffffff",
+            "on-secondary-fixed":            "#1c1c19",
+            "on-surface":                    "#1e1b1a",
+            "surface-container-highest":     "#e9e1df",
+            "on-background":                 "#1e1b1a",
+            "surface-container":             "#f5ecea",
+            "surface-tint":                  "#984536",
+            "outline-variant":               "#dbc1bc",
+            "on-primary":                    "#ffffff",
+            "surface-container-low":         "#fbf2f0",
+            "on-tertiary-container":         "#908f8b",
+            "error":                         "#ba1a1a",
+            "secondary-container":           "#e6e2dd",
+            "surface-dim":                   "#e1d8d6",
+            "on-error":                      "#ffffff",
+            "on-tertiary-fixed":             "#1c1c19",
+            "outline":                       "#88726e",
+            "on-primary-container":          "#d47462",
+            "surface":                       "#fff8f6",
+            "surface-container-lowest":      "#ffffff",
+            "surface-bright":                "#fff8f6",
+            "background":                    "#fff8f6",
+            "on-secondary-container":        "#666460",
+            "on-error-container":            "#93000a",
+            "on-surface-variant":            "#55433f",
+            "tertiary":                      "#131411",
+            "on-secondary-fixed-variant":    "#484743",
+            "tertiary-fixed":                "#e5e2dd",
+            "secondary":                     "#605e5b",
+            "primary-fixed-dim":             "#ffb4a6",
+            "on-primary-fixed-variant":      "#7a2f21",
+            "surface-variant":               "#e9e1df"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "margin-desktop": "32px",
+            "stack-lg":       "24px",
+            "gutter":         "24px",
+            "stack-sm":       "8px",
+            "stack-md":       "16px",
+            "sidebar-width":  "280px",
+            "topbar-height":  "72px"
+          },
+          fontFamily: {
+            "title-lg":    ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "body-lg":     ["Manrope"],
+            "label-md":    ["Manrope"],
+            "headline-md": ["Manrope"],
+            "display-lg":  ["Manrope"],
+            "body-md":     ["Manrope"]
+          },
+          fontSize: {
+            "title-lg":    ["20px", { lineHeight: "28px",  fontWeight: "600" }],
+            "headline-lg": ["32px", { lineHeight: "40px",  letterSpacing: "-0.01em", fontWeight: "700" }],
+            "body-lg":     ["16px", { lineHeight: "24px",  fontWeight: "400" }],
+            "label-md":    ["12px", { lineHeight: "16px",  letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px",  fontWeight: "600" }],
+            "display-lg":  ["48px", { lineHeight: "60px",  letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md":     ["14px", { lineHeight: "20px",  fontWeight: "400" }]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body class="text-on-surface">
+
+  <!-- ═══════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="data_budaya.html">
+        <span class="material-symbols-outlined">museum</span> Data Budaya
+      </a>
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span> Kontrol Ulasan
+      </a>
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span> Kontrol Favorit
+      </a>
+      <a class="active" href="kontrol_user.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+        Kontrol User
+      </a>
+      <a href="pengaturan.html">
+        <span class="material-symbols-outlined">settings</span> Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════ -->
+  <main class="pt-[calc(72px+32px)] ml-sidebar-width px-margin-desktop pb-12 min-h-screen">
+    <div class="max-w-[1440px] mx-auto space-y-gutter">
+
+      <!-- Breadcrumb & Header -->
+      <div class="flex justify-between items-end">
+        <div>
+          <nav class="flex items-center gap-2 mb-2 text-on-surface-variant">
+            <span class="font-label-md text-label-md">ADMIN</span>
+            <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+            <span class="font-label-md text-label-md text-primary-container font-bold">USER CONTROL</span>
+          </nav>
+          <h2 class="font-headline-lg text-headline-lg text-primary">Manajemen Pengguna</h2>
+        </div>
+        <button class="bg-primary-container text-white px-6 py-3 rounded-lg font-label-md flex items-center gap-2 hover:opacity-90 transition-all shadow-sm">
+          <span class="material-symbols-outlined text-[20px]">person_add</span>
+          DAFTAR PENGGUNA BARU
+        </button>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+            <span class="material-symbols-outlined text-[28px]">group</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">TOTAL PENGGUNA</p>
+            <h3 class="font-display-lg text-[32px] leading-none font-black text-primary">12,842</h3>
+            <p class="text-xs text-green-600 font-bold mt-1">↑ 12% from last month</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-800">
+            <span class="material-symbols-outlined text-[28px]">bolt</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">AKTIF SEKARANG</p>
+            <h3 class="font-display-lg text-[32px] leading-none font-black text-primary">1,402</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Real-time sessions</p>
+          </div>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm flex items-center gap-4">
+          <div class="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center text-green-800">
+            <span class="material-symbols-outlined text-[28px]">app_registration</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant uppercase tracking-wider">PENDAFTARAN BARU</p>
+            <h3 class="font-display-lg text-[32px] leading-none font-black text-primary">84</h3>
+            <p class="text-xs text-on-surface-variant mt-1">Past 24 hours</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- User Data Table Card -->
+      <div class="bg-white rounded-xl border border-outline-variant shadow-sm overflow-hidden">
+
+        <!-- Filter Bar -->
+        <div class="p-6 border-b border-outline-variant flex flex-wrap items-center justify-between gap-4 bg-surface-container-low/30">
+          <div class="flex items-center gap-3">
+            <button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container transition-all">
+              <span class="material-symbols-outlined text-[18px]">filter_list</span>
+              Filter
+            </button>
+            <button class="flex items-center gap-2 px-4 py-2 bg-white border border-outline-variant rounded-lg font-label-md text-on-surface-variant hover:bg-surface-container transition-all">
+              <span class="material-symbols-outlined text-[18px]">sort</span>
+              Sort: Newest
+            </button>
+          </div>
+          <div class="flex items-center gap-2">
+            <p class="font-label-md text-label-md text-on-surface-variant">Showing 1-10 of 12,842</p>
+            <div class="flex gap-1 ml-4">
+              <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant disabled:opacity-30" disabled>
+                <span class="material-symbols-outlined text-[18px]">chevron_left</span>
+              </button>
+              <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant bg-primary-container text-white font-label-md text-label-md">1</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant hover:bg-surface-container font-label-md text-label-md">2</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant">
+                <span class="material-symbols-outlined text-[18px]">chevron_right</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left">
+            <thead>
+              <tr class="bg-surface-container-low/50">
+                <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">DETAIL PENGGUNA</th>
+                <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">PERAN</th>
+                <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">STATUS</th>
+                <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant">TANGGAL BERGABUNG</th>
+                <th class="px-6 py-4 font-label-md text-label-md text-on-surface-variant border-b border-outline-variant text-right">AKSI</th>
+              </tr>
+            </thead>
+            <tbody class="js-user-table-body divide-y divide-outline-variant">
+
+              <!-- Row 1 -->
+              <tr class="js-user-row hover:bg-primary-container/5 transition-colors group">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <img alt="Dewi Sartika" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-container/10"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDlWRppOxe72irwH21zhJ_Y50ShhXGdGud6pcsorUyhCkrxxttlDoERPHB90UK7CfmYnL0sw_Dh2blmLw9DhsQHrQVuToLIJ3ztoHEeSvfE-gTjb3p0aeYhmJqcZzNBlZZXNbS3W5PFICyNd6jfZ2qjL3Xa9PD_7MEpnMlzkrWF53DMO73ya3BYd5v1bnX1zWbv7yag0BBNoL7FcsxlHU205GgFl-PZsx7mdzCkFU0Xx_lq4fnBbyW6u8bSrU2vXe-HrCaLUfgQuN8Z">
+                    <div>
+                      <p class="font-body-md text-body-md font-bold text-on-surface">Dewi Sartika</p>
+                      <p class="font-label-md text-label-md text-on-surface-variant">dewi.sartika@heritage.id</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 bg-primary-container/10 text-primary-container rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">Admin</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Active
+                  </span>
+                </td>
+                <td class="px-6 py-4 font-body-md text-body-md text-on-surface-variant">Oct 24, 2023</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="edit" title="Edit User">
+                      <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-error transition-colors" data-action="ban" title="Ban User">
+                      <span class="material-symbols-outlined text-[20px]">block</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="more">
+                      <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 2 -->
+              <tr class="js-user-row hover:bg-primary-container/5 transition-colors group">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <img alt="Bambang Wijaya" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-container/10"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDS07Ik3yXKWf_Rct9t4sBM2q9qqE4UMcvF-kgjRqkdgug_xQlaiVOC_uetNxw04Qw96UHdl0QQKS3ZPpDd_VdW1GmF4uyWmKOy3kF_DP4sURGb5Fm4ZRUARedSKGExfju7LRGjXF46YtWWjwPDvOaj2Rs5twPcPJ3zpDoeEHBzig6VZx7VymNlzVpt35X8_YDNqIRd-MQwPojrHzUPsJz9XZUytb8Pe-e3Ujc3xqZg8XPP9KQURF8bnvbI93kzRmJhYMQdR8CLRcvl">
+                    <div>
+                      <p class="font-body-md text-body-md font-bold text-on-surface">Bambang Wijaya</p>
+                      <p class="font-label-md text-label-md text-on-surface-variant">bambang.w@heritage.id</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 bg-secondary-container/50 text-secondary rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">Curator</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Active
+                  </span>
+                </td>
+                <td class="px-6 py-4 font-body-md text-body-md text-on-surface-variant">Nov 12, 2023</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="edit">
+                      <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-error transition-colors" data-action="ban">
+                      <span class="material-symbols-outlined text-[20px]">block</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="more">
+                      <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 3 — Banned -->
+              <tr class="js-user-row hover:bg-primary-container/5 transition-colors group">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center font-bold text-primary-container">RP</div>
+                    <div>
+                      <p class="font-body-md text-body-md font-bold text-on-surface">Rizky Perdana</p>
+                      <p class="font-label-md text-label-md text-on-surface-variant">rizky.perdana@gmail.com</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">User</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-error-container text-error rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-error"></span>Banned
+                  </span>
+                </td>
+                <td class="px-6 py-4 font-body-md text-body-md text-on-surface-variant">Dec 05, 2023</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="edit">
+                      <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="unban">
+                      <span class="material-symbols-outlined text-[20px]">undo</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="more">
+                      <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <!-- Row 4 -->
+              <tr class="js-user-row hover:bg-primary-container/5 transition-colors group">
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <img alt="Aditya Nugraha" class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-container/10"
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUC0WI053M4snftGp-C2kyeZISQzJ1urUXEDGAippUYHjBQq0-HE7VSdaTRkDrVWY5EBivFkrfW8FQeQuajIB0aLzuTmpGK7A7yfDV1vWQaBPssQixFe0SxuUDMElDMdMtatfxlu3cYw-bjAPxrO5dfjMHGF204JFZznYU2GjuOX4lGcrdy4C8pFKPGT5Pf_mqxkfh9mFG9BCrVf9GinFIb3RdP-XG15vGjjlZtNaNRKz3fWltFKre6zqR-lVH0T8MqkMaZHUDnyKP">
+                    <div>
+                      <p class="font-body-md text-body-md font-bold text-on-surface">Aditya Nugraha</p>
+                      <p class="font-label-md text-label-md text-on-surface-variant">adit.n@visitor.id</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="px-3 py-1 bg-surface-container-high text-on-surface-variant rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">User</span>
+                </td>
+                <td class="px-6 py-4">
+                  <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-green-100 text-green-700 rounded-full font-label-md text-[10px] uppercase tracking-widest font-bold">
+                    <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span>Active
+                  </span>
+                </td>
+                <td class="px-6 py-4 font-body-md text-body-md text-on-surface-variant">Jan 18, 2024</td>
+                <td class="px-6 py-4 text-right">
+                  <div class="flex items-center justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="edit">
+                      <span class="material-symbols-outlined text-[20px]">edit</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-error transition-colors" data-action="ban">
+                      <span class="material-symbols-outlined text-[20px]">block</span>
+                    </button>
+                    <button class="js-action-btn p-2 text-on-surface-variant hover:text-primary-container transition-colors" data-action="more">
+                      <span class="material-symbols-outlined text-[20px]">more_vert</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Bulk Actions Footer -->
+        <div class="p-4 bg-surface-container-low/30 border-t border-outline-variant flex justify-between items-center">
+          <div class="flex items-center gap-4">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input id="js-select-all" class="w-4 h-4 rounded border-outline-variant text-primary-container focus:ring-primary-container" type="checkbox">
+              <span class="font-label-md text-label-md text-on-surface-variant">Pilih Semua yang Terlihat</span>
+            </label>
+            <button id="js-bulk-delete" class="text-error font-label-md text-label-md hover:underline disabled:opacity-50" disabled>Hapus yang Dipilih</button>
+            <button id="js-bulk-role" class="text-primary-container font-label-md text-label-md hover:underline disabled:opacity-50" disabled>Ubah Peran</button>
+          </div>
+          <div class="flex items-center gap-2">
+            <span class="font-label-md text-label-md text-on-surface-variant">Rows per page:</span>
+            <select class="bg-transparent border-none font-label-md text-label-md focus:ring-0">
+              <option>10</option>
+              <option>25</option>
+              <option>50</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Bento: Logs + Policy -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+
+        <!-- Recent Admin Actions -->
+        <div class="bg-white p-6 rounded-xl border border-outline-variant shadow-sm space-y-4">
+          <h3 class="font-title-lg text-title-lg text-primary flex items-center gap-2">
+            <span class="material-symbols-outlined">history</span>
+            Aksi Admin Terbaru
+          </h3>
+          <div class="space-y-4">
+            <div class="flex gap-4">
+              <div class="w-1 bg-primary-container rounded-full h-10 flex-shrink-0"></div>
+              <div>
+                <p class="font-body-md text-body-md font-bold">Role Update: Bambang Wijaya</p>
+                <p class="font-label-md text-label-md text-on-surface-variant">Updated from User to Curator by Admin User • 2 hours ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-1 bg-error rounded-full h-10 flex-shrink-0"></div>
+              <div>
+                <p class="font-body-md text-body-md font-bold">Ban Account: Rizky Perdana</p>
+                <p class="font-label-md text-label-md text-on-surface-variant">Policy violation reported by Curator • 5 hours ago</p>
+              </div>
+            </div>
+            <div class="flex gap-4">
+              <div class="w-1 bg-blue-500 rounded-full h-10 flex-shrink-0"></div>
+              <div>
+                <p class="font-body-md text-body-md font-bold">New User Registration</p>
+                <p class="font-label-md text-label-md text-on-surface-variant">Aditya Nugraha joined via Public Portal • 1 day ago</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Policy Card -->
+        <div class="bg-primary-container p-8 rounded-xl text-white flex flex-col justify-between overflow-hidden relative group">
+          <!-- Background grid pattern -->
+          <div class="absolute inset-0 opacity-10 pointer-events-none transition-transform duration-700 group-hover:scale-110">
+            <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                  <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"></path>
+                </pattern>
+              </defs>
+              <rect width="100%" height="100%" fill="url(#grid)"></rect>
+            </svg>
+          </div>
+          <div class="relative z-10">
+            <h3 class="font-headline-md text-headline-md mb-2">Penegakan Kebijakan</h3>
+            <p class="font-body-md text-body-md opacity-80 leading-relaxed">
+              Sebagai Admin Jatim Heritage, Anda bertanggung jawab menjaga integritas arsip budaya kami. Pastikan semua kurator yang terdaftar memiliki kredensial terverifikasi sebelum memberikan akses administratif.
+            </p>
+          </div>
+          <div class="relative z-10 mt-8 flex justify-between items-center">
+            <a class="text-white border border-white/30 px-4 py-2 rounded-lg font-label-md hover:bg-white hover:text-primary-container transition-all" href="#">BACA PANDUAN</a>
+            <span class="material-symbols-outlined text-[48px] opacity-20">verified_user</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- External JS -->
+  <script src="kontrol_user.js"></script>
+
+</body>
+</html>

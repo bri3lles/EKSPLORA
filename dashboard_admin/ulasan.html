@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Kontrol Ulasan</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS (utility layer) -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "secondary-fixed-dim":           "#c9c6c1",
+            "primary-fixed":                 "#ffdad3",
+            "tertiary-container":            "#282825",
+            "on-tertiary-fixed-variant":     "#474743",
+            "inverse-primary":               "#ffb4a6",
+            "on-primary-fixed":              "#3f0400",
+            "primary-container":             "#501006",
+            "on-secondary":                  "#ffffff",
+            "surface-container-high":        "#efe6e4",
+            "secondary-fixed":               "#e6e2dd",
+            "inverse-on-surface":            "#f8efed",
+            "tertiary-fixed-dim":            "#c9c6c1",
+            "inverse-surface":               "#342f2f",
+            "error-container":               "#ffdad6",
+            "primary":                       "#2f0200",
+            "on-tertiary":                   "#ffffff",
+            "on-secondary-fixed":            "#1c1c19",
+            "on-surface":                    "#1e1b1a",
+            "surface-container-highest":     "#e9e1df",
+            "on-background":                 "#1e1b1a",
+            "surface-container":             "#f5ecea",
+            "surface-tint":                  "#984536",
+            "outline-variant":               "#dbc1bc",
+            "on-primary":                    "#ffffff",
+            "surface-container-low":         "#fbf2f0",
+            "on-tertiary-container":         "#908f8b",
+            "error":                         "#ba1a1a",
+            "secondary-container":           "#e6e2dd",
+            "surface-dim":                   "#e1d8d6",
+            "on-error":                      "#ffffff",
+            "on-tertiary-fixed":             "#1c1c19",
+            "outline":                       "#88726e",
+            "on-primary-container":          "#d47462",
+            "surface":                       "#fff8f6",
+            "surface-container-lowest":      "#ffffff",
+            "surface-bright":                "#fff8f6",
+            "background":                    "#fff8f6",
+            "on-secondary-container":        "#666460",
+            "on-error-container":            "#93000a",
+            "on-surface-variant":            "#55433f",
+            "tertiary":                      "#131411",
+            "on-secondary-fixed-variant":    "#484743",
+            "tertiary-fixed":                "#e5e2dd",
+            "secondary":                     "#605e5b",
+            "primary-fixed-dim":             "#ffb4a6",
+            "on-primary-fixed-variant":      "#7a2f21",
+            "surface-variant":               "#e9e1df"
+          },
+          borderRadius: {
+            DEFAULT: "0.25rem",
+            lg: "0.5rem",
+            xl: "0.75rem",
+            full: "9999px"
+          },
+          spacing: {
+            "margin-desktop": "32px",
+            "stack-lg":       "24px",
+            "gutter":         "24px",
+            "stack-sm":       "8px",
+            "stack-md":       "16px",
+            "sidebar-width":  "280px",
+            "topbar-height":  "72px"
+          },
+          fontFamily: {
+            "title-lg":    ["Manrope"],
+            "headline-lg": ["Manrope"],
+            "body-lg":     ["Manrope"],
+            "label-md":    ["Manrope"],
+            "headline-md": ["Manrope"],
+            "display-lg":  ["Manrope"],
+            "body-md":     ["Manrope"]
+          },
+          fontSize: {
+            "title-lg":    ["20px", { lineHeight: "28px",  fontWeight: "600" }],
+            "headline-lg": ["32px", { lineHeight: "40px",  letterSpacing: "-0.01em", fontWeight: "700" }],
+            "body-lg":     ["16px", { lineHeight: "24px",  fontWeight: "400" }],
+            "label-md":    ["12px", { lineHeight: "16px",  letterSpacing: "0.05em", fontWeight: "600" }],
+            "headline-md": ["24px", { lineHeight: "32px",  fontWeight: "600" }],
+            "display-lg":  ["48px", { lineHeight: "60px",  letterSpacing: "-0.02em", fontWeight: "700" }],
+            "body-md":     ["14px", { lineHeight: "20px",  fontWeight: "400" }]
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Global Stylesheet -->
+  <link rel="stylesheet" href="main.css">
+</head>
+
+<body class="text-on-surface">
+
+  <!-- ═══════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span> Dashboard
+      </a>
+      <a href="data_budaya.html">
+        <span class="material-symbols-outlined">museum</span> Data Budaya
+      </a>
+      <a class="active" href="ulasan.html">
+        <span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">comment</span>
+        Kontrol Ulasan
+      </a>
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span> Kontrol Favorit
+      </a>
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span> Kontrol User
+      </a>
+      <a href="pengaturan.html">
+        <span class="material-symbols-outlined">settings</span> Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════ -->
+  <main class="ml-sidebar-width pt-topbar-height min-h-screen bg-[#F9F5F0]">
+    <div class="p-margin-desktop max-w-[1440px] mx-auto">
+
+      <!-- Page Header -->
+      <div class="flex justify-between items-end mb-stack-lg">
+        <div>
+          <h2 class="font-headline-lg text-headline-lg text-primary-container">Kontrol Ulasan</h2>
+          <p class="font-body-lg text-body-lg text-on-surface-variant">
+            Tinjau dan moderasi ulasan dari masyarakat tentang warisan budaya Jawa Timur.
+          </p>
+        </div>
+        <div class="flex gap-stack-sm">
+          <div class="bg-surface border border-outline-variant rounded-lg p-1 flex">
+            <button class="js-filter-tab px-4 py-1.5 bg-primary-container text-white rounded-md font-label-md text-label-md">Semua</button>
+            <button class="js-filter-tab px-4 py-1.5 text-on-surface-variant hover:text-primary-container rounded-md font-label-md text-label-md transition-colors">Perlu Ditinjau</button>
+            <button class="js-filter-tab px-4 py-1.5 text-on-surface-variant hover:text-primary-container rounded-md font-label-md text-label-md transition-colors">Dilaporkan</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-gutter mb-stack-lg">
+        <div class="bg-surface border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 shadow-sm">
+          <div class="w-12 h-12 bg-primary-container/10 rounded-full flex items-center justify-center text-primary-container">
+            <span class="material-symbols-outlined">rate_review</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant">Total Ulasan</p>
+            <p class="font-headline-md text-headline-md text-on-surface">1,284</p>
+          </div>
+        </div>
+        <div class="bg-surface border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 shadow-sm">
+          <div class="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center text-amber-700">
+            <span class="material-symbols-outlined">pending</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant">Menunggu</p>
+            <p class="font-headline-md text-headline-md text-on-surface">42</p>
+          </div>
+        </div>
+        <div class="bg-surface border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 shadow-sm">
+          <div class="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-700">
+            <span class="material-symbols-outlined">check_circle</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant">Disetujui</p>
+            <p class="font-headline-md text-headline-md text-on-surface">1,210</p>
+          </div>
+        </div>
+        <div class="bg-surface border border-outline-variant rounded-xl p-stack-md flex items-center gap-4 shadow-sm">
+          <div class="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center text-red-700">
+            <span class="material-symbols-outlined">report</span>
+          </div>
+          <div>
+            <p class="font-label-md text-label-md text-on-surface-variant">Dihapus</p>
+            <p class="font-headline-md text-headline-md text-on-surface">32</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comment Cards -->
+      <div class="space-y-stack-md">
+
+        <!-- Card 1 — Pending -->
+        <div class="js-comment-card group bg-surface border border-outline-variant rounded-xl p-stack-md flex gap-stack-lg hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-amber-500"></div>
+          <div class="flex-shrink-0">
+            <img alt="Adi Wijaya"
+              class="w-12 h-12 rounded-full object-cover border border-outline-variant"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrLeslP2tFmPP-_l47oBST7bT2Ewrox-xlk49dLvNoiCxkhzl4B4GPJp1_LrKiqZH87-W0IaKgM3bdEkZxuua7-1UdudC0CnnpGd6o8l25OsDwmbkH8Fh4OJhQNZClqot955gKk5lCYLxcbXwig8ws-YWZCyzkiZaObIFH3AMCMxUdfXCslG5NALzC-lPushZge1RP4Pvs8_uqdoqzLPMivkgmL2u6b10YytwcVJNQPMZpcPEDql3F_empTN7O0-GS133GHJ8VC1KS">
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="font-title-lg text-[16px] text-on-surface font-bold">Adi Wijaya</h3>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px] text-primary-container">location_on</span>
+                  <span class="font-label-md text-label-md text-primary-container/80">Candi Penataran, Blitar</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-label-md text-label-md text-on-surface-variant">2 jam yang lalu</span>
+                </div>
+              </div>
+              <span class="js-status-badge px-3 py-1 bg-amber-50 text-amber-700 text-[10px] font-bold uppercase tracking-widest rounded-full border border-amber-200">Perlu Ditinjau</span>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-3xl">
+              Tempatnya sangat asri dan terjaga. Saya sarankan untuk datang pagi hari supaya tidak terlalu panas dan bisa mengambil foto relief dengan pencahayaan yang bagus. Semoga kebersihan terus dipertahankan oleh pengelola.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 justify-center border-l border-outline-variant/30 pl-stack-lg">
+            <button data-action="approve" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-primary-container text-white rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">check</span> Setujui
+            </button>
+            <button data-action="hide" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-highest active:scale-95 transition-all w-32 border border-outline-variant/50">
+              <span class="material-symbols-outlined text-[18px]">visibility_off</span> Sembunyikan
+            </button>
+            <button data-action="delete" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 border border-red-200 text-error rounded-lg font-label-md text-label-md hover:bg-red-50 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">delete</span> Hapus
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 2 — Published -->
+        <div class="js-comment-card group bg-surface border border-outline-variant rounded-xl p-stack-md flex gap-stack-lg hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+          <div class="flex-shrink-0">
+            <img alt="Sari Putri"
+              class="w-12 h-12 rounded-full object-cover border border-outline-variant"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuATKR6703eO5HTLijdDoNf7-uw5ijCtggIHZTvKjLK4_tLgQ429KWef8zj1UcvfXKCq_eqBGa0LGUg-H7ev5Le9u10eAkMLJAvQaZH-AVOE8ZGBMrAuOM3GN-8SeoBDtI3NKLGedcD15wnsy-svk3AFy_s2PnSw0qt7ux1cJ9KBJYF7fzX5cL5NsoCfmYuSrDPJ5_lZA6MVidSYkDyj7vfkRjpZQLB7QscypWMgYKdOhUpQE63qpyNbzWpAryckHO8ocpSK1O21N4EX">
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="font-title-lg text-[16px] text-on-surface font-bold">Sari Putri</h3>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px] text-primary-container">location_on</span>
+                  <span class="font-label-md text-label-md text-primary-container/80">Museum Mpu Tantular, Sidoarjo</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-label-md text-label-md text-on-surface-variant">5 jam yang lalu</span>
+                </div>
+              </div>
+              <span class="js-status-badge px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-widest rounded-full border border-green-200">Terbit</span>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-3xl">
+              Koleksi kerisnya sangat lengkap. Pemandu wisatanya juga sangat informatif dalam menjelaskan sejarah setiap artefak. Wajib dikunjungi untuk pelajar yang ingin tahu sejarah Jawa Timur lebih dalam.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 justify-center border-l border-outline-variant/30 pl-stack-lg opacity-40 group-hover:opacity-100 transition-opacity">
+            <button data-action="approve" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-primary-container text-white rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">check</span> Setujui
+            </button>
+            <button data-action="hide" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-highest active:scale-95 transition-all w-32 border border-outline-variant/50">
+              <span class="material-symbols-outlined text-[18px]">visibility_off</span> Sembunyikan
+            </button>
+            <button data-action="delete" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 border border-red-200 text-error rounded-lg font-label-md text-label-md hover:bg-red-50 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">delete</span> Hapus
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 3 — Reported -->
+        <div class="js-comment-card group bg-red-50/30 border border-red-100 rounded-xl p-stack-md flex gap-stack-lg hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-error"></div>
+          <div class="flex-shrink-0">
+            <div class="w-12 h-12 rounded-full bg-secondary-container flex items-center justify-center text-secondary">
+              <span class="material-symbols-outlined">person</span>
+            </div>
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="font-title-lg text-[16px] text-on-surface font-bold">Pengguna Anonim</h3>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px] text-primary-container">location_on</span>
+                  <span class="font-label-md text-label-md text-primary-container/80">Kawasan Kota Lama, Surabaya</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-label-md text-label-md text-on-surface-variant">1 hari yang lalu</span>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-error text-lg">report_problem</span>
+                <span class="js-status-badge px-3 py-1 bg-red-100 text-red-700 text-[10px] font-bold uppercase tracking-widest rounded-full border border-red-200">Dilaporkan (3x)</span>
+              </div>
+            </div>
+            <p class="font-body-md text-body-md text-error leading-relaxed max-w-3xl italic">
+              "Komentar ini mengandung kata-kata yang tidak pantas dan promosi layanan yang tidak relevan dengan konten sejarah."
+            </p>
+            <div class="mt-stack-sm p-3 bg-white/60 rounded-lg border border-red-100">
+              <p class="font-label-md text-label-md text-red-800 font-bold mb-1">Alasan Laporan:</p>
+              <p class="font-body-md text-body-md text-red-600/80">Spam, Konten tidak relevan, Ujaran kebencian.</p>
+            </div>
+          </div>
+          <div class="flex flex-col gap-2 justify-center border-l border-red-100 pl-stack-lg">
+            <button data-action="ignore" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-primary-container text-white rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">check</span> Abaikan
+            </button>
+            <button data-action="hide" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-highest active:scale-95 transition-all w-32 border border-outline-variant/50">
+              <span class="material-symbols-outlined text-[18px]">visibility_off</span> Sembunyikan
+            </button>
+            <button data-action="delete" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-error text-white rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">delete</span> Hapus
+            </button>
+          </div>
+        </div>
+
+        <!-- Card 4 — Published -->
+        <div class="js-comment-card group bg-surface border border-outline-variant rounded-xl p-stack-md flex gap-stack-lg hover:shadow-lg transition-all duration-300 relative overflow-hidden">
+          <div class="absolute left-0 top-0 bottom-0 w-1 bg-primary-container"></div>
+          <div class="flex-shrink-0">
+            <img alt="Rahmat Hidayat"
+              class="w-12 h-12 rounded-full object-cover border border-outline-variant"
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtuc3MuFLOfHltK4vgf1_JZk20obAakbwpXRPj0uZjTpis7YwL9AoCJUUxADEArZB-9hbUonLqUuhUA4JpVo_lEjzfHagTWp5rW0O1AaSt9xj6ERNg3D_OQmrRLmhNG6DyoYUUlxWvA77j07Pvio0cOZeqTBhdtyqd99l9fqq3sd3EEz15UP2l182t520uAxScJbEuDUIpZijnVSQteECl8bYwSdxzSPBE0bbsoy6IeMpGKN8pHnNyjYk33go5hqrJkXuQrKHAnrUe">
+          </div>
+          <div class="flex-1">
+            <div class="flex justify-between items-start mb-2">
+              <div>
+                <h3 class="font-title-lg text-[16px] text-on-surface font-bold">Rahmat Hidayat</h3>
+                <div class="flex items-center gap-2 mt-0.5">
+                  <span class="material-symbols-outlined text-[14px] text-primary-container">location_on</span>
+                  <span class="font-label-md text-label-md text-primary-container/80">Situs Trowulan, Mojokerto</span>
+                  <span class="text-outline-variant">•</span>
+                  <span class="font-label-md text-label-md text-on-surface-variant">2 hari yang lalu</span>
+                </div>
+              </div>
+              <span class="js-status-badge px-3 py-1 bg-green-50 text-green-700 text-[10px] font-bold uppercase tracking-widest rounded-full border border-green-200">Terbit</span>
+            </div>
+            <p class="font-body-md text-body-md text-on-surface-variant leading-relaxed max-w-3xl">
+              Eskavasi terbaru memberikan wawasan luar biasa tentang tata kota Majapahit. Sangat disarankan bagi pengunjung untuk menyewa guide lokal agar mendapatkan cerita mendalam yang tidak ada di papan informasi.
+            </p>
+          </div>
+          <div class="flex flex-col gap-2 justify-center border-l border-outline-variant/30 pl-stack-lg opacity-40 group-hover:opacity-100 transition-opacity">
+            <button data-action="approve" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-primary-container text-white rounded-lg font-label-md text-label-md hover:opacity-90 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">check</span> Setujui
+            </button>
+            <button data-action="hide" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 bg-surface-container-high text-on-surface-variant rounded-lg font-label-md text-label-md hover:bg-surface-container-highest active:scale-95 transition-all w-32 border border-outline-variant/50">
+              <span class="material-symbols-outlined text-[18px]">visibility_off</span> Sembunyikan
+            </button>
+            <button data-action="delete" class="js-mod-btn flex items-center justify-center gap-2 px-6 py-2 border border-red-200 text-error rounded-lg font-label-md text-label-md hover:bg-red-50 active:scale-95 transition-all w-32">
+              <span class="material-symbols-outlined text-[18px]">delete</span> Hapus
+            </button>
+          </div>
+        </div>
+
+      </div><!-- /comment cards -->
+
+      <!-- Pagination -->
+      <div class="mt-stack-lg flex justify-between items-center bg-surface border border-outline-variant rounded-xl px-stack-md py-4">
+        <p class="font-body-md text-body-md text-on-surface-variant">Menampilkan 4 dari 1.284 ulasan</p>
+        <div class="flex items-center gap-2">
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined">chevron_left</span>
+          </button>
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg bg-primary-container text-white font-label-md text-label-md">1</button>
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">2</button>
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">3</button>
+          <span class="text-on-surface-variant px-1">...</span>
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors font-label-md text-label-md">32</button>
+          <button class="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container-low transition-colors">
+            <span class="material-symbols-outlined">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- External JS -->
+  <script src="script.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Budaya — Jatim Heritage Admin</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+      <a href="data_budaya.html" class="active">
+        <span class="material-symbols-outlined">museum</span>
+        Data Budaya
+      </a>
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span>
+        Kontrol Ulasan
+      </a>
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span>
+        Kontrol Favorit
+      </a>
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span>
+        Kontrol User
+      </a>
+      <a href="pengaturan.html">
+        <span class="material-symbols-outlined">settings</span>
+        Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="main-content">
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
+      <div
+        style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:var(--spacing-stack-lg);">
+        <div>
+          <h2 style="font-size:24px;font-weight:600;margin:0 0 4px;">Manajemen Data Budaya</h2>
+          <p style="font-size:14px;color:var(--color-on-surface-variant);margin:0;">Kelola arsip warisan budaya Jawa
+            Timur secara efisien.</p>
+        </div>
+        <a href="tambah_budaya.html" class="btn btn--primary">
+          <span class="material-symbols-outlined">add</span>
+          Tambah Budaya
+        </a>
+      </div>
+
+      <!-- Filter Bar -->
+      <div class="filter-bar">
+        <div class="filter-bar__group">
+          <span class="filter-bar__label">Kategori:</span>
+          <select id="filter-category">
+            <option>Semua Kategori</option>
+            <option>Seni Pertunjukan</option>
+            <option>Arsitektur</option>
+            <option>Tradisi Lisan</option>
+            <option>Kerajinan Tangan</option>
+          </select>
+        </div>
+        <div class="filter-bar__group">
+          <span class="filter-bar__label">Wilayah:</span>
+          <select id="filter-region">
+            <option>Semua Wilayah</option>
+            <option>Surabaya</option>
+            <option>Malang</option>
+            <option>Banyuwangi</option>
+            <option>Ponorogo</option>
+          </select>
+        </div>
+        <div class="filter-bar__group">
+          <span class="filter-bar__label">Status:</span>
+          <select id="filter-status">
+            <option>Semua Status</option>
+            <option value="aktif">Aktif</option>
+            <option value="draf">Draf</option>
+          </select>
+        </div>
+        <button class="btn btn--ghost" id="reset-filters" style="margin-left:auto;">
+          <span class="material-symbols-outlined" style="font-size:20px">filter_list</span>
+          Atur Ulang Filter
+        </button>
+      </div>
+
+      <!-- Data Table -->
+      <div class="data-table-wrapper">
+        <table class="data-table" id="budaya-table">
+          <thead>
+            <tr>
+              <th>Info Budaya</th>
+              <th>Kategori</th>
+              <th>Asal</th>
+              <th class="text-center">Interaksi</th>
+              <th>Status</th>
+              <th class="text-right">Aksi</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <!-- Row 1 -->
+            <tr data-category="Seni Pertunjukan" data-region="Ponorogo" data-status="aktif">
+              <td>
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKD2gWL5fHB15jpp2mxHxxZh3Af0ZysW6-RhIidZYrPYqgIqw8hNEmVdIrtD9ZCZy80T_66qkFDgVJjX0PGiUTTRqYmtHrU2yuTsI8clyO27LqvXzKFQC4wKav9JFrdE-dSA27knBynR_GrHwakJaGZ6fDVlLTnq96I9eLXSRRDHhuDUmN2LPxk7f4PL-FYyFLVf8O4dFGYMX8bRVkb2KW9PeEDyZtUHS8U0rPzIavHXhhgJTcytnzYwg5TjR9FF3e1qQL414Ap0Sb"
+                    alt="Reog Ponorogo"
+                    style="width:64px;height:48px;border-radius:var(--radius-md);object-fit:cover;border:1px solid var(--color-outline-variant);" />
+                  <div>
+                    <p class="asset-name"
+                      style="font-size:16px;font-weight:700;color:var(--color-on-surface);margin:0 0 2px;">Reog Ponorogo
+                    </p>
+                    <p style="font-size:12px;color:var(--color-on-surface-variant);margin:0;">ID: CLTR-00192</p>
+                  </div>
+                </div>
+              </td>
+              <td>Seni Pertunjukan</td>
+              <td>Ponorogo</td>
+              <td style="text-align:center;">
+                <div style="display:flex;justify-content:center;gap:16px;">
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-error);">
+                    <span class="material-symbols-outlined"
+                      style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span> 1.2k
+                  </span>
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-on-surface-variant);">
+                    <span class="material-symbols-outlined" style="font-size:18px">comment</span> 84
+                  </span>
+                </div>
+              </td>
+              <td><span class="badge badge--active">Aktif</span></td>
+              <td>
+                <div class="row-actions">
+                  <button class="action-btn action-btn--edit" title="Edit"><span class="material-symbols-outlined"
+                      style="font-size:20px">edit</span></button>
+                  <button class="action-btn action-btn--delete" title="Hapus"><span class="material-symbols-outlined"
+                      style="font-size:20px">delete</span></button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 2 -->
+            <tr data-category="Tradisi Lisan" data-region="Jawa Timur" data-status="aktif">
+              <td>
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAonUuItr6BDUmDR563dp0pG4yDgO3NPdEzsPSJ63lJ_1K8DVr5kCZ0_K0foyd-Gz0-CCn85hpGXYM-APYlNFVvWdJYay0GDdSlRwNiK_S9SD3J-czU5yZRZ2Fy7JRaYebprbR3PcnPXhxKknkl6a5mZ-LeVunfBqlTywe4lOShZZVzDGVgtimCWb6kIXSN-tvYBn7bXQ9pKEkxGPqWqHjQEDAJKO_CEhrMlcHH6zTK-S0gvAPREyLMQYg6mnV13mOR82mTKzMokDVT"
+                    alt="Wayang Kulit"
+                    style="width:64px;height:48px;border-radius:var(--radius-md);object-fit:cover;border:1px solid var(--color-outline-variant);" />
+                  <div>
+                    <p class="asset-name"
+                      style="font-size:16px;font-weight:700;color:var(--color-on-surface);margin:0 0 2px;">Wayang Kulit
+                      Gagrak Jatim</p>
+                    <p style="font-size:12px;color:var(--color-on-surface-variant);margin:0;">ID: CLTR-00204</p>
+                  </div>
+                </div>
+              </td>
+              <td>Tradisi Lisan</td>
+              <td>Jawa Timur</td>
+              <td style="text-align:center;">
+                <div style="display:flex;justify-content:center;gap:16px;">
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-error);">
+                    <span class="material-symbols-outlined"
+                      style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span> 952
+                  </span>
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-on-surface-variant);">
+                    <span class="material-symbols-outlined" style="font-size:18px">comment</span> 120
+                  </span>
+                </div>
+              </td>
+              <td><span class="badge badge--active">Aktif</span></td>
+              <td>
+                <div class="row-actions">
+                  <button class="action-btn action-btn--edit" title="Edit"><span class="material-symbols-outlined"
+                      style="font-size:20px">edit</span></button>
+                  <button class="action-btn action-btn--delete" title="Hapus"><span class="material-symbols-outlined"
+                      style="font-size:20px">delete</span></button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 3 -->
+            <tr data-category="Arsitektur" data-region="Blitar" data-status="draf">
+              <td>
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsTYPrz-zjjPoXXB-BXzh1ud_M8T-u8o1Pwial78JRulCsxOHK4h9736pTVVaZqJ2SfpnmJAiHXaBUJMRLphYhSS_fmTiu-BnGeLB1y0C52UuLG02x3OMa1UBRNEJgse8fbutMVU0bgxlbYK1SmCrejFJ13TyQCGlvGnHTYzyPDSyb1hEYGNqN6rVJi8gU-F9mm4q6Gz_KKBYcJv9iJT8ep5jcmu0eK2jxVfvZyQRHyDwH8Lib3iNglCThu1MbhCtzBgoIPOVIp3a7"
+                    alt="Candi Penataran"
+                    style="width:64px;height:48px;border-radius:var(--radius-md);object-fit:cover;border:1px solid var(--color-outline-variant);" />
+                  <div>
+                    <p class="asset-name"
+                      style="font-size:16px;font-weight:700;color:var(--color-on-surface);margin:0 0 2px;">Candi
+                      Penataran</p>
+                    <p style="font-size:12px;color:var(--color-on-surface-variant);margin:0;">ID: CLTR-00185</p>
+                  </div>
+                </div>
+              </td>
+              <td>Arsitektur</td>
+              <td>Blitar</td>
+              <td style="text-align:center;">
+                <div style="display:flex;justify-content:center;gap:16px;">
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-error);">
+                    <span class="material-symbols-outlined"
+                      style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span> 2.4k
+                  </span>
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-on-surface-variant);">
+                    <span class="material-symbols-outlined" style="font-size:18px">comment</span> 312
+                  </span>
+                </div>
+              </td>
+              <td><span class="badge badge--draft">Draf</span></td>
+              <td>
+                <div class="row-actions">
+                  <button class="action-btn action-btn--edit" title="Edit"><span class="material-symbols-outlined"
+                      style="font-size:20px">edit</span></button>
+                  <button class="action-btn action-btn--delete" title="Hapus"><span class="material-symbols-outlined"
+                      style="font-size:20px">delete</span></button>
+                </div>
+              </td>
+            </tr>
+
+            <!-- Row 4 -->
+            <tr data-category="Seni Pertunjukan" data-region="Banyuwangi" data-status="aktif">
+              <td>
+                <div style="display:flex;align-items:center;gap:16px;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuD3tgHwDOWJE-QH1P_02dfp9aGvubedH4db-WMkAwkMdma5kPnxjjkMbZ-k6A3oGGceRIt6fhkk8_r8sgjHNL-Gt7LEwcXH1RK81iDyl1qM70gPjhsKhS-z_SoJPcRWT7yApZq3nk-3cqjUW4IfziNMsWgBJYkxsZSlahGr7k3T5mD56X45ILRnju4nLFXyIABhwHln_-Kuv0hC4C7JUuzY0_r5z0TaBtlJ3TyDekSw1x37183pngsY_0XujkyA8pJNQehMbjStn8qa"
+                    alt="Tari Gandrung"
+                    style="width:64px;height:48px;border-radius:var(--radius-md);object-fit:cover;border:1px solid var(--color-outline-variant);" />
+                  <div>
+                    <p class="asset-name"
+                      style="font-size:16px;font-weight:700;color:var(--color-on-surface);margin:0 0 2px;">Tari Gandrung
+                    </p>
+                    <p style="font-size:12px;color:var(--color-on-surface-variant);margin:0;">ID: CLTR-00215</p>
+                  </div>
+                </div>
+              </td>
+              <td>Seni Pertunjukan</td>
+              <td>Banyuwangi</td>
+              <td style="text-align:center;">
+                <div style="display:flex;justify-content:center;gap:16px;">
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-error);">
+                    <span class="material-symbols-outlined"
+                      style="font-size:18px;font-variation-settings:'FILL' 1">favorite</span> 1.8k
+                  </span>
+                  <span
+                    style="display:flex;align-items:center;gap:4px;font-size:13px;font-weight:600;color:var(--color-on-surface-variant);">
+                    <span class="material-symbols-outlined" style="font-size:18px">comment</span> 156
+                  </span>
+                </div>
+              </td>
+              <td><span class="badge badge--active">Aktif</span></td>
+              <td>
+                <div class="row-actions">
+                  <button class="action-btn action-btn--edit" title="Edit"><span class="material-symbols-outlined"
+                      style="font-size:20px">edit</span></button>
+                  <button class="action-btn action-btn--delete" title="Hapus"><span class="material-symbols-outlined"
+                      style="font-size:20px">delete</span></button>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination">
+          <span class="pagination__info">Menampilkan 1 – 4 dari 124 entri</span>
+          <div class="pagination__controls">
+            <button class="pagination__btn" disabled>
+              <span class="material-symbols-outlined" style="font-size:20px">chevron_left</span>
+            </button>
+            <button class="pagination__btn active">1</button>
+            <button class="pagination__btn">2</button>
+            <button class="pagination__btn">3</button>
+            <span class="pagination__dots">...</span>
+            <button class="pagination__btn">31</button>
+            <button class="pagination__btn">
+              <span class="material-symbols-outlined" style="font-size:20px">chevron_right</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom Stats Bar -->
+      <div style="margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:var(--spacing-gutter);">
+        <div class="card" style="padding:16px;display:flex;align-items:center;gap:16px;">
+          <div
+            style="width:48px;height:48px;background:rgba(47,2,0,.05);color:var(--color-primary);border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">visibility</span>
+          </div>
+          <div>
+            <p
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-on-surface-variant);margin:0;">
+              Tampilan Bulan Ini</p>
+            <p style="font-size:24px;font-weight:700;color:var(--color-on-surface);margin:0;">42,810</p>
+          </div>
+        </div>
+        <div class="card" style="padding:16px;display:flex;align-items:center;gap:16px;">
+          <div
+            style="width:48px;height:48px;background:#f0fdf4;color:#15803d;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">verified</span>
+          </div>
+          <div>
+            <p
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-on-surface-variant);margin:0;">
+              Warisan Terverifikasi</p>
+            <p style="font-size:24px;font-weight:700;color:var(--color-on-surface);margin:0;">1,204</p>
+          </div>
+        </div>
+        <div class="card" style="padding:16px;display:flex;align-items:center;gap:16px;">
+          <div
+            style="width:48px;height:48px;background:#fffbeb;color:#b45309;border-radius:50%;display:flex;align-items:center;justify-content:center;">
+            <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">history_edu</span>
+          </div>
+          <div>
+            <p
+              style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--color-on-surface-variant);margin:0;">
+              Dalam Peninjauan</p>
+            <p style="font-size:24px;font-weight:700;color:var(--color-on-surface);margin:0;">45</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="sidebar.js"></script>
+  <script src="data_budaya.js"></script>
+</body>
+
+</html>

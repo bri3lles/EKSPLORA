@@ -133,6 +133,7 @@ min-height: 500px;
     box-shadow: #50100676;
     display: flex;
     gap: 12px;
+    transform: translateY(-50%);
     flex-wrap: wrap;
 }
 

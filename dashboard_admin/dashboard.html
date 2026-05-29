@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Jatim Heritage Admin</title>
+  <link rel="stylesheet" href="main.css" />
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html" class="active">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+      <a href="data_budaya.html">
+        <span class="material-symbols-outlined">museum</span>
+        Data Budaya
+      </a>
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span>
+        Kontrol Ulasan
+      </a>
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span>
+        Kontrol Favorit
+      </a>
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span>
+        Kontrol User
+      </a>
+      <a href="pengaturan.html">
+        <span class="material-symbols-outlined">settings</span>
+        Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="main-content">
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h2>Dashboard Statistik</h2>
+        <p>Memantau metrik pelestarian budaya dan keterlibatan pengunjung secara real-time.</p>
+      </div>
+
+      <!-- Summary Cards -->
+      <div class="grid-4-col">
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <div class="stat-card__icon stat-card__icon--primary">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">museum</span>
+            </div>
+            <span class="stat-card__trend stat-card__trend--up">
+              <span class="material-symbols-outlined" style="font-size:16px">trending_up</span>
+              +12%
+            </span>
+          </div>
+          <p class="stat-card__label">Total Budaya</p>
+          <p class="stat-card__value" data-count="1482">1,482</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <div class="stat-card__icon stat-card__icon--secondary">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">favorite</span>
+            </div>
+            <span class="stat-card__trend stat-card__trend--up">
+              <span class="material-symbols-outlined" style="font-size:16px">trending_up</span>
+              +8%
+            </span>
+          </div>
+          <p class="stat-card__label">Total Favorit</p>
+          <p class="stat-card__value">45.2k</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <div class="stat-card__icon stat-card__icon--primary">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">rate_review</span>
+            </div>
+            <span class="stat-card__trend stat-card__trend--down">
+              <span class="material-symbols-outlined" style="font-size:16px">trending_down</span>
+              -2%
+            </span>
+          </div>
+          <p class="stat-card__label">Total Ulasan</p>
+          <p class="stat-card__value" data-count="12890">12,890</p>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-card__header">
+            <div class="stat-card__icon stat-card__icon--secondary">
+              <span class="material-symbols-outlined" style="font-variation-settings:'FILL' 1">person</span>
+            </div>
+            <span class="stat-card__trend stat-card__trend--up">
+              <span class="material-symbols-outlined" style="font-size:16px">trending_up</span>
+              +24%
+            </span>
+          </div>
+          <p class="stat-card__label">Pengguna Aktif</p>
+          <p class="stat-card__value" data-count="3102">3,102</p>
+        </div>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid-12">
+
+        <!-- Visitor Chart -->
+        <div class="card col-8" style="padding:24px;display:flex;flex-direction:column;">
+          <div class="card__header">
+            <div>
+              <h3 class="card__title">Tren Pengunjung</h3>
+              <p class="card__subtitle">Analisis pengunjung bulanan untuk tahun 2024</p>
+            </div>
+            <div
+              style="display:flex;background:var(--color-surface-container-low);border-radius:var(--radius-md);padding:4px;gap:2px;">
+              <button class="chart-period-btn"
+                style="padding:4px 16px;border:none;border-radius:var(--radius-md);font-family:'Manrope',sans-serif;font-size:12px;font-weight:700;cursor:pointer;background:#ffffff;color:var(--color-primary-container);box-shadow:0 1px 4px rgba(80,16,6,0.1);">Mingguan</button>
+              <button class="chart-period-btn"
+                style="padding:4px 16px;border:none;border-radius:var(--radius-md);font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--color-on-surface-variant);">Bulanan</button>
+              <button class="chart-period-btn"
+                style="padding:4px 16px;border:none;border-radius:var(--radius-md);font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;cursor:pointer;background:transparent;color:var(--color-on-surface-variant);">Tahunan</button>
+            </div>
+          </div>
+
+          <div style="flex:1;min-height:300px;position:relative;">
+
+            <!-- ANGKA SAMPING KIRI -->
+            <div class="chart-y-axis">
+              <span>12</span>
+              <span>10</span>
+              <span>8</span>
+              <span>6</span>
+              <span>4</span>
+              <span>2</span>
+              <span>0</span>
+            </div>
+
+            <svg id="visitor-chart" viewBox="0 0 1200 300" preserveAspectRatio="none" style="width:100%;height:100%;">
+
+              <!-- Grid -->
+              <line x1="0" x2="1200" y1="250" y2="250" stroke="#EAE7E2" stroke-width="1" />
+              <line x1="0" x2="1200" y1="215" y2="215" stroke="#EFEAE7" stroke-width="1"/>
+              <line x1="0" x2="1200" y1="180" y2="180" stroke="#EAE7E2" stroke-width="1" />
+              <line x1="0" x2="1200" y1="145" y2="145" stroke="#EFEAE7" stroke-width="1"/>
+              <line x1="0" x2="1200" y1="110" y2="110" stroke="#EAE7E2" stroke-width="1" />
+              <line x1="0" x2="1200" y1="75"  y2="75"  stroke="#EFEAE7" stroke-width="1"/>
+              <line x1="0" x2="1200" y1="40" y2="40" stroke="#EAE7E2" stroke-width="1" />
+
+              <!-- BATANG -->
+              <rect class="chart-bar" x="20" y="210" width="55" height="40" />
+              <rect class="chart-bar" x="115" y="170" width="55" height="80" />
+              <rect class="chart-bar" x="210" y="190" width="55" height="60" />
+              <rect class="chart-bar" x="305" y="130" width="55" height="120" />
+              <rect class="chart-bar" x="400" y="150" width="55" height="100" />
+              <rect class="chart-bar" x="495" y="80" width="55" height="170" />
+              <rect class="chart-bar" x="590" y="100" width="55" height="150" />
+              <rect class="chart-bar" x="685" y="60" width="55" height="190" />
+              <rect class="chart-bar" x="780" y="90" width="55" height="160" />
+              <rect class="chart-bar" x="875" y="120" width="55" height="130" />
+              <rect class="chart-bar" x="970" y="70" width="55" height="180" />
+              <rect class="chart-bar" x="1065" y="40" width="55" height="210" />
+
+            </svg>
+
+            <!-- Month Labels -->
+            <div class="chart-labels">
+              <span>JAN</span>
+              <span>FEB</span>
+              <span>MAR</span>
+              <span>APR</span>
+              <span>MAY</span>
+              <span>JUN</span>
+              <span>JUL</span>
+              <span>AUG</span>
+              <span>SEP</span>
+              <span>OCT</span>
+              <span>NOV</span>
+              <span>DEC</span>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Side Panel -->
+        <div class="col-4" style="display:flex;flex-direction:column;gap:var(--spacing-gutter);">
+
+          <!-- Popular Cultures -->
+          <div class="card" style="padding:24px;flex:1;">
+            <div class="card__header">
+              <h3 class="card__title">Budaya Populer</h3>
+              <a href="data_budaya.html"
+                style="font-size:12px;font-weight:700;color:var(--color-primary-container);">Lihat Semua</a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:20px;">
+
+              <!-- Item 1 -->
+              <div style="display:flex;align-items:center;gap:16px;" class="pop-item">
+                <div style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden;flex-shrink:0;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxegdgzl9sKsgNVGPIjilTx3VogmNqxCjxsQN3_qzZp7_-SK0rs852FG_oBWqpiixWC7EY25-hAfXdnK4ZPaRbQYYDMnb5bllr_o0p7_X0E59v03_1ImTi2--NJIa3FDsmCjMfuyyQW2m7Zr6sN2qRjAh3wfPXKX-Eo0ukgQx4xm3C-kR4HQ17y7iDZpnDfabHAmb4l9-8ZWlK2p8zysCBo7AghUUNHjvNrgXXG6s_d9KRLh13yiv_BJdqLWVJDzKHI7Z6ZimkkYIo"
+                    alt="Candi Penataran" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+                <div style="flex:1;">
+                  <h4 style="font-size:12px;font-weight:700;margin:0 0 2px;">Candi Penataran</h4>
+                  <p
+                    style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-on-surface-variant);margin:0 0 8px;">
+                    Blitar, Jawa Timur</p>
+                  <div style="display:flex;gap:12px;font-size:10px;font-weight:700;">
+                    <span style="color:var(--color-primary-container);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined"
+                        style="font-size:14px;font-variation-settings:'FILL' 1">favorite</span> 1.2k
+                    </span>
+                    <span style="color:var(--color-on-surface-variant);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined" style="font-size:14px">visibility</span> 8.4k
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 2 -->
+              <div style="display:flex;align-items:center;gap:16px;" class="pop-item">
+                <div style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden;flex-shrink:0;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuB8hpsVylW7oR277C6Q1XjrbDTZnbjdQgA4b4Y3_UWF2R7mC2fLkWs_TudmA9s3ta_qSw1KsIlY5i_-QUQPj2hsyZqWcbEeCmjLVfV8npVTL-2RUpQKJlc-9dLLMzM2h_PGgz68ouFvhpvhym2tj3HpybLH7m_C0_nPoVydmJp0jZTVAzlpOsyTJCYbku_RjA_7-aNmvshbfVw2Ll--XQjpgWaM90-kzVqmwGOC08o2S0yt3DOShzpx7gaD1Lb1CUkgy4wMoGxV-hUr"
+                    alt="Reog Ponorogo" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+                <div style="flex:1;">
+                  <h4 style="font-size:12px;font-weight:700;margin:0 0 2px;">Reog Ponorogo</h4>
+                  <p
+                    style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-on-surface-variant);margin:0 0 8px;">
+                    Ponorogo, Jawa Timur</p>
+                  <div style="display:flex;gap:12px;font-size:10px;font-weight:700;">
+                    <span style="color:var(--color-primary-container);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined"
+                        style="font-size:14px;font-variation-settings:'FILL' 1">favorite</span> 2.8k
+                    </span>
+                    <span style="color:var(--color-on-surface-variant);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined" style="font-size:14px">visibility</span> 12.1k
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Item 3 -->
+              <div style="display:flex;align-items:center;gap:16px;" class="pop-item">
+                <div style="width:64px;height:64px;border-radius:var(--radius-md);overflow:hidden;flex-shrink:0;">
+                  <img
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAPIL1JtudKn-P7F1nFBDuqkgCOGvxOI7K0meCAHwwATkaX9UBFnEsTI49lKiST3zxhh4h6f7Mh2baifqb-aMFHtLAAMXcG2D-afeTpteRhr_W2f_V1J_ZqhPfm3grwrjPJFaFB-dwq1vZ43CDUyvVN9lj3oUc2mlvKgW1FzJYk-gUE5f4F1qG8ZIq-0CBhETT-FWr2E6kfNW57KjDbViQaeMx4TMTMFN9G80URQhVpuSwG801bt_E5Xfqk4ogPfiuiDs24-tvSBzs1"
+                    alt="Batik Gedog" style="width:100%;height:100%;object-fit:cover;" />
+                </div>
+                <div style="flex:1;">
+                  <h4 style="font-size:12px;font-weight:700;margin:0 0 2px;">Batik Gedog</h4>
+                  <p
+                    style="font-size:10px;text-transform:uppercase;letter-spacing:0.06em;color:var(--color-on-surface-variant);margin:0 0 8px;">
+                    Tuban, Jawa Timur</p>
+                  <div style="display:flex;gap:12px;font-size:10px;font-weight:700;">
+                    <span style="color:var(--color-primary-container);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined"
+                        style="font-size:14px;font-variation-settings:'FILL' 1">favorite</span> 950
+                    </span>
+                    <span style="color:var(--color-on-surface-variant);display:flex;align-items:center;gap:4px;">
+                      <span class="material-symbols-outlined" style="font-size:14px">visibility</span> 5.2k
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <style>
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      50% {
+        opacity: 0.6;
+        transform: scale(1.2);
+      }
+    }
+
+    .pop-item img {
+      transition: transform 0.3s ease;
+    }
+
+    .pop-item:hover img {
+      transform: scale(1.08);
+    }
+  </style>
+
+  <script src="sidebar.js"></script>
+  <script src="dashboard.js"></script>
+</body>
+
+</html>

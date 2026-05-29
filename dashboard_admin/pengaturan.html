@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengaturan Profil — Jatim Heritage Admin</title>
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    /* ── Page-specific styles ── */
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 0;
+    }
+
+    .toggle-row__info h4 {
+      font-size: 14px;
+      font-weight: 600;
+      margin: 0 0 2px;
+      color: var(--color-on-surface);
+    }
+
+    .toggle-row__info p {
+      font-size: 12px;
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+
+    /* Native toggle reimplemented */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .switch__slider {
+      position: absolute;
+      inset: 0;
+      background-color: var(--color-secondary-container);
+      border-radius: var(--radius-full);
+      cursor: pointer;
+      transition: background-color .2s;
+    }
+
+    .switch__slider::before {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      left: 2px;
+      bottom: 2px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform .2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
+    }
+
+    .switch input:checked+.switch__slider {
+      background-color: var(--color-primary-container);
+    }
+
+    .switch input:checked+.switch__slider::before {
+      transform: translateX(20px);
+    }
+
+    /* Session item */
+    .session-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--color-surface-container);
+    }
+
+    .session-item:last-child {
+      border-bottom: none;
+    }
+
+    .session-location {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-on-surface);
+      margin: 0 0 2px;
+    }
+
+    .session-meta {
+      font-size: 10px;
+      color: var(--color-on-surface-variant);
+      margin: 0;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+      <a href="data-budaya.html">
+        <span class="material-symbols-outlined">museum</span>
+        Data Budaya
+      </a>
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span>
+        Kontrol Ulasan
+      </a>
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span>
+        Kontrol Favorit
+      </a>
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span>
+        Kontrol User
+      </a>
+      <a href="pengaturan.html" class="active">
+        <span class="material-symbols-outlined">settings</span>
+        Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <button
+        style="display:flex;align-items:center;gap:12px;padding:20px 4px;width:100%;background:none;border:none;cursor:pointer;border-radius:var(--radius-md);color:var(--color-error);font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;transition:background .15s;"
+        onmouseenter="this.style.background='rgba(186,26,26,.08)'" onmouseleave="this.style.background='none'">
+        <span class="material-symbols-outlined">logout</span>
+        Logout
+      </button>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="main-content">
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
+      <div class="page-header">
+        <h2 style="font-size:32px;font-weight:700;color:var(--color-primary-container);">Profile Management</h2>
+        <p>Update your personal details, security settings, and console preferences.</p>
+      </div>
+
+      <!-- Bento Grid -->
+      <div class="grid-12">
+
+        <!-- Personal Info (col-8) -->
+        <section class="card col-8" style="padding:24px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:32px;">
+            <div style="display:flex;align-items:center;gap:12px;">
+              <span class="material-symbols-outlined" style="color:var(--color-primary-container)">badge</span>
+              <h3 style="font-size:24px;font-weight:600;margin:0;">Personal Information</h3>
+            </div>
+            <button class="btn btn--primary" id="btn-save-profile">Save Changes</button>
+          </div>
+
+          <div style="display:flex;gap:40px;flex-wrap:wrap;">
+            <!-- Avatar -->
+            <div style="display:flex;flex-direction:column;align-items:center;gap:12px;">
+              <div
+                style="position:relative;width:160px;height:160px;border-radius:var(--radius-lg);overflow:hidden;cursor:pointer;"
+                class="avatar-container">
+                <img id="avatar-preview"
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuChomcWO2HTq-W6AVhkcZcdDW7eBLZv25c6qGSORQWk0ZKXScmFitrMmjXijAAini8xz_kSbVu8P9pxjMDE3RuCjTfM11tvwbfLfhcCvbq2MU041S63yozrhMbe5BXxnvOps2Jil3g1ecA2TADTPkLVUQoL3A9fZGIe9aF4YQVxC2JASrp2FNz9lLWDXrqIapR2KY_pY2VfBCJlgxtP1mBO8JcI4cg_VBig_hXuhnixKjBlB65Y8Z5p_tCFbSDdXOQYlPNnJohSamH_"
+                  alt="Avatar"
+                  style="width:100%;height:100%;object-fit:cover;border:4px solid #fff;box-shadow:0 4px 16px rgba(0,0,0,.1);" />
+                <label for="avatar-input"
+                  style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.4);opacity:0;transition:opacity .2s;cursor:pointer;border-radius:var(--radius-lg);"
+                  onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=0">
+                  <span class="material-symbols-outlined" style="color:#fff;font-size:32px;">photo_camera</span>
+                </label>
+                <input type="file" id="avatar-input" accept="image/*" style="display:none;" />
+              </div>
+              <p
+                style="font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--color-on-surface-variant);text-align:center;max-width:160px;">
+                JPG, PNG atau WEBP. Maks 2MB.</p>
+            </div>
+
+            <!-- Fields -->
+            <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:16px;min-width:280px;">
+              <div class="form-group">
+                <label class="form-label">Nama Lengkap</label>
+                <input class="form-input" type="text" value="Aryo Tejo" />
+              </div>
+              <div class="form-group">
+                <label class="form-label">Alamat Email</label>
+                <input class="form-input" type="email" value="aryo.tejo@heritage.go.id" />
+              </div>
+              <div class="form-group" style="grid-column:span 2;">
+                <label class="form-label">Bio Profesional</label>
+                <textarea class="form-input" rows="4"
+                  style="resize:none;">Senior Cultural Historian specializing in East Javanese Majapahit relics. Lead Admin for the Heritage Preservation Digitalization project since 2018.</textarea>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Role</label>
+                <div class="form-input"
+                  style="background:var(--color-surface-container-low);color:var(--color-on-surface-variant);cursor:not-allowed;">
+                  Chief Curator (Full Access)
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Lokasi</label>
+                <input class="form-input" type="text" value="Surabaya, Indonesia" />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Change Password (sebelah Personal Information) -->
+        <div class="col-4" style="display:flex;flex-direction:column;gap:var(--spacing-gutter);">
+
+          <section class="card" style="padding:24px;height:100%;">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:32px;">
+              <span class="material-symbols-outlined" style="color:var(--color-primary-container)">security</span>
+              <h3 style="font-size:24px;font-weight:600;margin:0;">Ganti Password</h3>
+            </div>
+
+            <p style="font-size:14px;color:var(--color-on-surface-variant);margin:0 0 24px;">
+              Pastikan akun Anda menggunakan kata sandi yang kuat dan unik.
+            </p>
+
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="form-group">
+                <label class="form-label">Password Saat Ini</label>
+                <input class="form-input" type="password" id="input-current-password"
+                  placeholder="Masukkan password saat ini" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Password Baru</label>
+                <input class="form-input" type="password" id="input-new-password"
+                  placeholder="Masukkan password baru" />
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Konfirmasi Password</label>
+                <input class="form-input" type="password" id="input-confirm-password"
+                  placeholder="Ulangi password baru" />
+              </div>
+
+              <button class="btn btn--primary" id="btn-update-password"
+                style="width:100%;justify-content:center;margin-top:8px;">
+                Update Password
+              </button>
+            </div>
+          </section>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <script src="sidebar.js"></script>
+  <script src="pengaturan.js"></script>
+</body>
+
+</html>

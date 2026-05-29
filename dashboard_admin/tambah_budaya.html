@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Jatim Heritage Admin - Tambah Budaya Baru</title>
+
+  <link rel="stylesheet" href="main.css" />
+
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+</head>
+
+<body>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+
+      <a href="tambah_budaya.html" class="active">
+        <span class="material-symbols-outlined">museum</span>
+        Cultural Data
+      </a>
+
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span>
+        Comments Control
+      </a>
+
+      <a href="favorit.html">
+        <span class="material-symbols-outlined">favorite</span>
+        Favorites Control
+      </a>
+
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span>
+        User Control
+      </a>
+
+      <a href="settings.html">
+        <span class="material-symbols-outlined">settings</span>
+        Settings
+      </a>
+
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- Main -->
+  <main class="main-content">
+
+    <!-- Topbar -->
+    <header class="topbar">
+
+      <div>
+        <p class="topbar__brand-label">
+          <a href="data_budaya.html">Budaya </a>/ Tambah Baru
+        </p>
+      </div>
+
+    </header>
+
+    <!-- Content -->
+    <div class="content-wrapper">
+
+      <div class="page-header">
+        <h2>Tambah Budaya Baru</h2>
+
+        <p>
+          Dokumentasikan aset budaya baru untuk arsip warisan Jawa Timur.
+        </p>
+      </div>
+
+      <form class="grid-12">
+
+        <!-- LEFT -->
+        <div class="col-7">
+
+          <!-- Upload -->
+          <section class="card budaya-section">
+
+            <label class="form-label">
+              Foto Utama (Hero Image)
+            </label>
+
+            <div class="upload-area" id="uploadArea">
+
+              <input type="file" id="hero-upload" />
+
+              <div class="upload-area__content">
+
+                <div class="upload-area__icon">
+                  <span class="material-symbols-outlined">
+                    add_a_photo
+                  </span>
+                </div>
+
+                <div>
+                  <p class="upload-area__title">
+                    Unggah Foto Budaya
+                  </p>
+
+                  <p class="upload-area__desc">
+                    Tarik gambar ke sini atau klik untuk memilih.
+                    <br>
+                    JPG / PNG maksimal 5MB
+                  </p>
+                </div>
+
+              </div>
+
+            </div>
+
+          </section>
+
+          <!-- Deskripsi -->
+          <section class="card budaya-section">
+
+            <label class="form-label" for="deskripsi">
+              Deskripsi Budaya
+            </label>
+
+            <textarea
+              id="deskripsi"
+              class="form-input budaya-textarea"
+              rows="12"
+              placeholder="Tuliskan sejarah, filosofi, dan detail budaya..."
+            ></textarea>
+
+            <div class="textarea-footer">
+              <span>Maksimal 2000 kata</span>
+              <span id="counter">0/2000</span>
+            </div>
+
+          </section>
+
+        </div>
+
+        <!-- RIGHT -->
+        <div class="col-5">
+
+          <!-- Info -->
+          <section class="card budaya-section">
+
+            <h3 class="card__title budaya-title">
+              Informasi Budaya
+            </h3>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Nama Budaya
+              </label>
+
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Contoh: Reog Ponorogo"
+              />
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Kategori
+              </label>
+
+              <select class="form-input">
+                <option>Pilih Kategori</option>
+                <option>Seni Pertunjukan</option>
+                <option>Monumen & Cagar Budaya</option>
+                <option>Tradisi Lisan</option>
+                <option>Adat Istiadat</option>
+                <option>Kerajinan Tangan</option>
+              </select>
+
+            </div>
+
+            <div class="form-group">
+
+              <label class="form-label">
+                Asal Wilayah
+              </label>
+
+              <input
+                type="text"
+                class="form-input"
+                placeholder="Contoh: Ponorogo, Jawa Timur"
+              />
+
+            </div>
+
+          </section>
+
+          <!-- Tips -->
+          <section class="card budaya-section">
+
+            <div class="tips-header">
+
+              <span class="material-symbols-outlined">
+                info
+              </span>
+
+              <span>Petunjuk Pengisian</span>
+
+            </div>
+
+            <ul class="tips-list">
+
+              <li>
+                Gunakan resolusi minimal 1920x1080 piksel.
+              </li>
+
+              <li>
+                Sertakan referensi sejarah yang valid.
+              </li>
+
+            </ul>
+
+          </section>
+
+          <!-- Buttons -->
+          <div class="form-actions">
+
+            <button class="btn btn--primary" type="submit">
+              <span class="material-symbols-outlined">
+                save
+              </span>
+
+              Simpan Budaya
+            </button>
+
+            <button class="btn btn--outline" type="button">
+              Batal
+            </button>
+
+          </div>
+
+        </div>
+
+      </form>
+
+    </div>
+
+  </main>
+
+  <script src="tambah_budaya.js"></script>
+
+</body>
+</html>

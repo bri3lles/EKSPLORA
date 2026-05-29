@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontrol Favorit — Jatim Heritage Admin</title>
+  <link rel="stylesheet" href="main.css" />
+  <style>
+    /* ── Page-specific sparkline table stripes ── */
+    #ranking-table tbody tr:nth-child(even) { background-color: #F9F5F0; }
+    #ranking-table tbody tr:nth-child(odd)  { background-color: #ffffff; }
+
+    /* ── Hero card zoom ── */
+    .hero-card-img { transition: transform 0.7s ease; }
+    .hero-card:hover .hero-card-img { transform: scale(1.05); }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       SIDEBAR
+  ════════════════════════════════════════════ -->
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__brand-icon">
+        <img src="../assets/logo.png" alt="Logo">
+      </div>
+      <div>
+        <p class="sidebar__brand-name">Eksplora</p>
+        <p class="sidebar__brand-sub">Dashboard Admin</p>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="dashboard.html">
+        <span class="material-symbols-outlined">dashboard</span>
+        Dashboard
+      </a>
+      <a href="data_budaya.html">
+        <span class="material-symbols-outlined">museum</span>
+        Data Budaya
+      </a>
+      <a href="ulasan.html">
+        <span class="material-symbols-outlined">comment</span>
+        Kontrol Ulasan
+      </a>
+      <a href="favorit.html" class="active">
+        <span class="material-symbols-outlined">favorite</span>
+        Kontrol Favorit
+      </a>
+      <a href="kontrol_user.html">
+        <span class="material-symbols-outlined">group</span>
+        Kontrol User
+      </a>
+      <a href="pengaturan.html">
+        <span class="material-symbols-outlined">settings</span>
+        Pengaturan
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <div class="sidebar__user-card">
+        <img
+          src="https://lh3.googleusercontent.com/aida-public/AB6AXuC2WZz0CtM_i37Wh8QaxUj3KUY6gnDZa3IMEeNFj-pjUZh8kCF3gsCgqlLc2vcaUtXuf-0DDgdHO9X-L99GUKhpGHnqcuahYRn9moi0-R-RGBrLXN4WA7TbwlbanywNWcgUMXucrB5qPzY8nBz8lPD_Fso8xVktkO9dojpqVA6dnPsT1HRgFYRZ7rNzt_3wmXlAusx-eW5PxcjdjJKbVDRZeb04IPQU4MxRpbGn4U2tkVbi8koMPbrl3MjeflJmiXMn7XpjXRqE0KXb"
+          alt="Budi Santoso" />
+        <div>
+          <p class="sidebar__user-name">Budi Santoso</p>
+          <p class="sidebar__user-role">Kepala Admin</p>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ═══════════════════════════════════════════
+       TOPBAR
+  ════════════════════════════════════════════ -->
+  <header class="topbar">
+    <div class="topbar__search">
+      <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant);font-size:20px">search</span>
+      <input type="text" placeholder="Cari aset budaya, catatan..." />
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CONTENT
+  ════════════════════════════════════════════ -->
+  <main class="main-content">
+    <div class="content-wrapper">
+
+      <!-- Page Header -->
+      <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:32px;">
+        <div>
+          <h2 style="font-size:32px;font-weight:700;line-height:40px;color:var(--color-primary-container);margin:0 0 4px;">Favorites Leaderboard</h2>
+          <p style="font-size:14px;color:var(--color-on-surface-variant);margin:0;">Tracking the most appreciated cultural heritage assets across East Java.</p>
+        </div>
+        <select id="period-select" style="background:#fff;border:1px solid var(--color-outline-variant);border-radius:var(--radius-md);padding:8px 16px;font-family:'Manrope',sans-serif;font-size:12px;font-weight:600;">
+          <option>Last 30 Days</option>
+          <option>Last 90 Days</option>
+          <option>This Year</option>
+          <option>All Time</option>
+        </select>
+      </div>
+
+      <!-- Bento Grid: Top Ranking Cards -->
+      <div class="grid-12" style="margin-bottom:32px;">
+
+        <!-- Rank 1 -->
+        <div class="card hero-card col-7" style="overflow:hidden;">
+          <div style="position:relative;height:288px;overflow:hidden;">
+            <img class="hero-card-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDJIlbv_vRXYH8zSq3LoLUpWMvhIaNQKc4QVe9MwYMykUAs3fUksgy1935I-5kTpWpptVbx1zjclTUrS7Wyqh9FmMhK62d-WwLOoTDArgrr_y4ENnW-57fVLs1bzGt3Swq_teXnh6pro8G-mk0aUgO3mLx2HacIRLy4-BNHItokZ_FNsqOPKqZux6uml6h4VMOm9ZkeJrfK3iGOS6Ig410V7tcb4XgyBgMFn3-5yh9I6kdkDKQV0oY8S-nLF8o1Gb5AzWgGuktSugmq"
+                 alt="Candi Penataran" style="width:100%;height:100%;object-fit:cover;" />
+            <div style="position:absolute;top:16px;left:16px;background:var(--color-primary-container);color:#fff;padding:4px 12px;border-radius:var(--radius-full);font-size:12px;font-weight:700;display:flex;align-items:center;gap:4px;">
+              <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">workspace_premium</span>
+              TOP HERITAGE
+            </div>
+          </div>
+          <div style="padding:24px;display:flex;justify-content:space-between;align-items:center;">
+            <div>
+              <h3 style="font-size:24px;font-weight:600;margin:0 0 4px;">Candi Penataran</h3>
+              <p style="font-size:14px;color:var(--color-on-surface-variant);margin:0;">Blitar, East Java • Hindu Temple</p>
+            </div>
+            <div style="text-align:right;">
+              <div style="display:flex;align-items:center;gap:8px;justify-content:flex-end;">
+                <span class="material-symbols-outlined" style="color:var(--color-primary-container);font-variation-settings:'FILL' 1">favorite</span>
+                <span style="font-size:32px;font-weight:700;color:var(--color-primary-container);">12,842</span>
+              </div>
+              <p style="font-size:12px;font-weight:700;color:#16a34a;display:flex;align-items:center;gap:4px;justify-content:flex-end;margin:4px 0 0;">
+                <span class="material-symbols-outlined" style="font-size:14px">trending_up</span> +12% this month
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rank 2 -->
+        <div class="card hero-card col-5" style="overflow:hidden;">
+          <div style="position:relative;height:192px;overflow:hidden;">
+            <img class="hero-card-img" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB39pobhIG8yU7GJ6Y-xxyOL7PM6vi6kCmosJAYouzF6l2XWguYynh57YrUCxqMHqstG6bVbIEVmvTWxfkd63bE6S_HNpot22jCEuayb2Ss8jPiGDBGXpWlLavhjqfjClbYCeb17y3m53B3GmULk-Fxu_z9p9LiwJlAQgJS3RWwSETklU_zVLjnNg09VmkUkOEWyeTp140TNj56lCxFRdvlV4fVXGxLmAR1K0gI1jNNmu1J_Sv-lFkypzN_Pu42qmgV-rOJfuZ3a7VU"
+                 alt="Reog Ponorogo" style="width:100%;height:100%;object-fit:cover;" />
+            <div style="position:absolute;top:16px;left:16px;background:var(--color-secondary);color:#fff;padding:4px 12px;border-radius:var(--radius-full);font-size:12px;font-weight:700;">#2 RANKED</div>
+          </div>
+          <div style="padding:24px;">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:16px;">
+              <div>
+                <h3 style="font-size:20px;font-weight:600;margin:0 0 4px;">Reog Ponorogo</h3>
+                <p style="font-size:14px;color:var(--color-on-surface-variant);margin:0;">Ponorogo • Performance Art</p>
+              </div>
+              <div style="display:flex;align-items:center;gap:4px;color:var(--color-primary-container);">
+                <span class="material-symbols-outlined" style="font-size:14px;font-variation-settings:'FILL' 1">favorite</span>
+                <span style="font-size:20px;font-weight:600;">8,904</span>
+              </div>
+            </div>
+            <div style="background:var(--color-surface-container-low);padding:12px;border-radius:var(--radius-md);display:flex;align-items:center;justify-content:space-between;">
+              <span style="font-size:12px;font-weight:600;letter-spacing:.05em;color:var(--color-on-surface-variant);">Weekly Trend</span>
+              <svg class="sparkline sparkline--up" style="width:80px;height:30px;" viewBox="0 0 100 30">
+                <path d="M0,25 L15,20 L30,28 L45,15 L60,10 L75,18 L90,5 L100,12" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stats Mini Cards -->
+        <div class="stat-card col-4">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Total Likes</span>
+            <span class="material-symbols-outlined" style="color:var(--color-primary-container);opacity:.2">favorite</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:16px;">
+            <span style="font-size:30px;font-weight:700;">142.5K</span>
+            <span style="font-size:14px;font-weight:700;color:#16a34a;">+5.2%</span>
+          </div>
+          <div style="height:4px;background:var(--color-surface-container);border-radius:var(--radius-full);overflow:hidden;">
+            <div style="height:100%;width:65%;background:var(--color-primary-container);border-radius:var(--radius-full);"></div>
+          </div>
+        </div>
+
+        <div class="stat-card col-4">
+          <div class="stat-card__header">
+            <span class="stat-card__label">New Favorites</span>
+            <span class="material-symbols-outlined" style="color:var(--color-primary-container);opacity:.2">add_reaction</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:16px;">
+            <span style="font-size:30px;font-weight:700;">2,841</span>
+            <span style="font-size:14px;color:var(--color-on-surface-variant);">vs last mo.</span>
+          </div>
+          <div style="display:flex;gap:4px;height:4px;">
+            <div style="flex:1;background:var(--color-primary-container);border-radius:var(--radius-full);"></div>
+            <div style="flex:1;background:var(--color-primary-container);border-radius:var(--radius-full);"></div>
+            <div style="flex:1;background:rgba(80,16,6,.2);border-radius:var(--radius-full);"></div>
+            <div style="flex:1;background:rgba(80,16,6,.2);border-radius:var(--radius-full);"></div>
+          </div>
+        </div>
+
+        <div class="stat-card col-4">
+          <div class="stat-card__header">
+            <span class="stat-card__label">Engagement Rate</span>
+            <span class="material-symbols-outlined" style="color:var(--color-primary-container);opacity:.2">analytics</span>
+          </div>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-bottom:16px;">
+            <span style="font-size:30px;font-weight:700;">18.4%</span>
+            <span style="font-size:14px;font-weight:700;color:#dc2626;">-0.8%</span>
+          </div>
+          <p style="font-size:11px;color:var(--color-on-surface-variant);font-style:italic;margin:0;">Weighted by visitor-to-favorite ratio</p>
+        </div>
+
+      </div>
+
+      <!-- Ranking Table -->
+      <div class="data-table-wrapper">
+        <div style="padding:24px;border-bottom:1px solid var(--color-outline-variant);display:flex;justify-content:space-between;align-items:center;">
+          <h3 style="font-size:20px;font-weight:600;margin:0;">Full Heritage Ranking</h3>
+          <div style="display:flex;gap:8px;">
+            <button style="padding:8px;border:1px solid var(--color-outline-variant);background:none;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;">
+              <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant)">filter_list</span>
+            </button>
+            <button style="padding:8px;border:1px solid var(--color-outline-variant);background:none;border-radius:var(--radius-sm);cursor:pointer;display:flex;align-items:center;">
+              <span class="material-symbols-outlined" style="color:var(--color-on-surface-variant)">more_vert</span>
+            </button>
+          </div>
+        </div>
+
+        <div style="overflow-x:auto;">
+          <table class="data-table" id="ranking-table">
+            <thead>
+              <tr>
+                <th>Rank</th>
+                <th>Cultural Asset</th>
+                <th>Category</th>
+                <th>Favorites</th>
+                <th>Growth (30D)</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-weight:700;">#3</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:40px;height:40px;border-radius:var(--radius-sm);overflow:hidden;background:var(--color-surface-container-high);">
+                      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCXbBiZlRZXZB7TNoXoBK_K0nL1YMrKYyvw-c6D-m9XBo2UwIGl2TRlC7b-h2ldL7zjJO03hTNwvT4yjvLQxO94GkM0yhlVJjX2nOS7RzNhrpSu3RW8GIj_H1AntBljBsg-1UXyWmAK-ydvkJfZrZeZ1F0kVrHqWwzTA6v_QXhkQazGVhqe1T1Y_JSb0lNHCHIqIWKQ9iBJKCVCRfP5_G3AYKXzrqRgNOe0vNG_w_g-eZUzcaGuZ6wbSrrvLuLC9ziP9M1KEaoDIKQ3" alt="Candi Tikus" style="width:100%;height:100%;object-fit:cover;" />
+                    </div>
+                    <span class="asset-name" style="font-weight:600;color:var(--color-on-surface);">Candi Tikus</span>
+                  </div>
+                </td>
+                <td><span class="badge badge--monument">Monument</span></td>
+                <td style="font-weight:700;color:var(--color-on-surface);">7,542</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:16px;">
+                    <span style="font-weight:700;color:#16a34a;">+8.4%</span>
+                    <svg class="sparkline sparkline--up" viewBox="0 0 100 30"><path d="M0,20 L20,15 L40,18 L60,10 L80,5 L100,2" /></svg>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn-view-detail" style="background:none;border:none;cursor:pointer;color:var(--color-on-surface-variant);opacity:.4;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td style="font-weight:700;">#4</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:40px;height:40px;border-radius:var(--radius-sm);overflow:hidden;background:var(--color-surface-container-high);">
+                      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXryG6BmlWaGSdFrJN3dnCqWE8ZcVC0DZRlUkiDowxLaZTHuURYPJoKeoirNB5AlJbkntnHDFjGbo55YBKlHkbonYmeUVd4fDUd1fDSJYtVJdZjXhaOJpMTVfAlZZohj_-OWdt06QjOSOfHj1LG4w0XTyZNmYwNn7c2DkFoBjm_ykooqpYN6KXJ6fdHa6Tm4y98phdUwxoDy9QV3cJjIPanAmV8nq_r5yV9aRDIswtO2x8Lwfi-g4q8xDOghlzAOPpRuNkIwvUQu7z" alt="Wayang Kulit" style="width:100%;height:100%;object-fit:cover;" />
+                    </div>
+                    <span class="asset-name" style="font-weight:600;color:var(--color-on-surface);">Wayang Kulit Jatim</span>
+                  </div>
+                </td>
+                <td><span class="badge badge--monument">Oral Tradition</span></td>
+                <td style="font-weight:700;color:var(--color-on-surface);">6,812</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:16px;">
+                    <span style="font-weight:700;color:#16a34a;">+3.2%</span>
+                    <svg class="sparkline sparkline--up" viewBox="0 0 100 30"><path d="M0,25 L20,23 L40,20 L60,15 L80,18 L100,10" /></svg>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn-view-detail" style="background:none;border:none;cursor:pointer;color:var(--color-on-surface-variant);opacity:.4;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td style="font-weight:700;">#5</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:40px;height:40px;border-radius:var(--radius-sm);overflow:hidden;background:var(--color-surface-container-high);">
+                      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuA-nyBbEedMQ3IBnedXr6S0gjOlGXAFZQufO7_Gj3NctgowuvJHcUVTtCFaOlU45j_tjTsOa4NtHb6XYRp5QykSQ-MogxNQUkMIiSbNv8862s2Ys2viJcjR-IPaGxIP0EazWDd1aRt8YwB26emcFz6ppKcRJGcEJHQFgQ-lSRb42PmVwiqaNGOsehHes-egIkYJa5fxC_DOvyw-2XYuE1TC4q3F7r5dWMY7DR4kbrHkob7ypR7q7s3MH0KijXtkwMam3LfgABD_UU9J" alt="Batik Jedhogan" style="width:100%;height:100%;object-fit:cover;" />
+                    </div>
+                    <span class="asset-name" style="font-weight:600;color:var(--color-on-surface);">Batik Jedhogan Tuban</span>
+                  </div>
+                </td>
+                <td><span class="badge badge--monument">Craft</span></td>
+                <td style="font-weight:700;color:var(--color-on-surface);">5,210</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:16px;">
+                    <span style="font-weight:700;color:#dc2626;">-1.2%</span>
+                    <svg class="sparkline sparkline--down" viewBox="0 0 100 30"><path d="M0,5 L20,8 L40,5 L60,12 L80,15 L100,20" /></svg>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn-view-detail" style="background:none;border:none;cursor:pointer;color:var(--color-on-surface-variant);opacity:.4;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </td>
+              </tr>
+
+              <tr>
+                <td style="font-weight:700;">#6</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:12px;">
+                    <div style="width:40px;height:40px;border-radius:var(--radius-sm);overflow:hidden;background:var(--color-surface-container-high);">
+                      <img src="https://lh3.googleusercontent.com/aida-public/AB6AXuCcAIPzvF8misLq9giQb8qn3lPCFuR-SqCRRv41yjxU-zyIm8tSXMIy8MBcDCRnZnM-MtB5Nxk2Kf8sCtrECCCzZhV1Ph2kJUvuwU3xnQkkzCs_HPtF7wVFmMeMeeXCWYqIlv1pZdrKLTcmE_nm1a_j9pzrb_TuXmZywovao_lONwaOBrkn1DvhrUPO5wdOtTsDezUcVYlc3PPwAdqjaJSLdnc7yRJmkaeUigzmStxXZMaxpQqCInDWaL_32cwnCHz1X14beJjY_RQ2" alt="Sate Madura" style="width:100%;height:100%;object-fit:cover;" />
+                    </div>
+                    <span class="asset-name" style="font-weight:600;color:var(--color-on-surface);">Sate Madura</span>
+                  </div>
+                </td>
+                <td><span class="badge badge--monument">Gastronomy</span></td>
+                <td style="font-weight:700;color:var(--color-on-surface);">4,930</td>
+                <td>
+                  <div style="display:flex;align-items:center;gap:16px;">
+                    <span style="font-weight:700;color:#16a34a;">+11.5%</span>
+                    <svg class="sparkline sparkline--up" viewBox="0 0 100 30"><path d="M0,28 L25,25 L50,15 L75,10 L100,2" /></svg>
+                  </div>
+                </td>
+                <td>
+                  <button class="btn-view-detail" style="background:none;border:none;cursor:pointer;color:var(--color-on-surface-variant);opacity:.4;transition:opacity .15s;" onmouseenter="this.style.opacity=1" onmouseleave="this.style.opacity=.4">
+                    <span class="material-symbols-outlined">visibility</span>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="pagination">
+          <span class="pagination__info">Showing 6 of 248 cultural assets</span>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn--outline" style="padding:6px 12px;" disabled>Previous</button>
+            <button class="btn btn--outline" style="padding:6px 12px;">Next</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <script src="sidebar.js"></script>
+  <script src="favorit.js"></script>
+</body>
+</html>
