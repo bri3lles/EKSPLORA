@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="id">
- 
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Landing Page</title>
     <link rel="stylesheet" href="landing_page.css">
 </head>
- 
+
 <body>
     <header>
         <div class="logo">
-            <img src="../assets/logo.png">
+            <img src="assets/logo.png">
             <span>Eksplora</span>
         </div>
         <nav>
             <ul>
                 <li><a href="landing_page.html">Beranda</a></li>
-                <li><a href="../pages/daftarBudaya.html">Daftar Budaya</a></li>
-                <li><a href="../pages/populer.html">Populer</a></li>
-                <li><a href="../pages/ulasan.html">Ulasan</a></li>
-                <li><a href="../pages/daftar.html" class="btn-daftar">Daftar</a></li>
+                <li><a href="user/pages/daftarBudaya.html">Daftar Budaya</a></li>
+                <li><a href="user/pages/populer.html">Populer</a></li>
+                <li><a href="user/pages/ulasan.html">Ulasan</a></li>
+                <li><a href="user/pages/daftar.html" class="btn-daftar">Daftar</a></li>
             </ul>
         </nav>
         <div class="hamburger-menu" onclick="toggleMenu()">
@@ -28,15 +28,18 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-    </header>
- 
-    <section class="hero" style="background-image: url('../assets/background.jpeg'); background-size: cover; background-position: center;">
-        <h2>Eksplor Budaya</h2>
-        <h1>JAWA TIMUR</h1>
-        <p>"Kita mungkin memiliki agama yang berbeda, bahasa yang berbeda, warna kulit yang berbeda, tetapi kita semua
-            berasal dari satu ras manusia."</p>
- 
-        <div class="search-box">
+    </header>   
+
+    <div class="hero-wrapper">
+        <section class="hero"
+            style="background-image: url('assets/background.jpeg'); background-size: cover; background-position: center;">
+            <h2>Eksplor Budaya</h2>
+            <h1>JAWA TIMUR</h1>
+            <p>"Kita mungkin memiliki agama yang berbeda, bahasa yang berbeda, warna kulit yang berbeda, tetapi kita
+                semua berasal dari satu ras manusia."</p>
+        </section>
+
+        <section class="search-box">
             <h4 id="search-title">Temukan Budaya Favorit Anda</h4>
             <input type="text" placeholder="Lokasi (contoh: Malang)">
             <select>
@@ -48,188 +51,191 @@
                 <option>Rumah Adat</option>
             </select>
             <button type="button">Cari</button>
-        </div>
-    </section>
- 
+        </section>
+    </div>
+
     <section class="main">
-        <div class="section-title">
-            <h3>Budaya Terpopuler</h3>
-        </div>
- 
-        <div class="cards">
-            <article class="card">
-                <div class="thumb"
-                    style="background-image:url('../assets/yadnaka.jpg'); background-size:cover; background-position:center;">
-                </div>
-                <div class="content">
-                    <div class="title">Karapan Sapi</div>
-                    <div class="desc">Tradisi balap sapi dari Madura yang ikonik dan penuh semangat.</div>
-                    <a class="btn" href="#karapan">Baca</a>
-                </div>
-            </article>
- 
-            <article class="card">
-                <div class="thumb"
-                    style="background-image:url('../assets/karapi1.jpg'); background-size:cover; background-position:center;">
-                </div>
-                <div class="content">
-                    <div class="title">Yadnya Kasada</div>
-                    <div class="desc">Upacara adat rakyat Tengger di kanan Gunung Bromo.</div>
-                    <a class="btn" href="#kasada">Baca</a>
-                </div>
-            </article>
- 
-            <article class="card">
-                <div class="thumb"
-                    style="background-image:url('../assets/tarbes.jpg'); background-size:cover; background-position:center;">
-                </div>
-                <div class="content">
-                    <div class="title">Tari Beskalan</div>
-                    <div class="desc">Salah satu tarian tradisional dengan gerak khas.</div>
-                    <a class="btn" href="#tari">Baca</a>
-                </div>
-            </article>
- 
-            <article class="card">
-                <div class="thumb"
-                    style="background-image:url('../assets/reogponorogo.jpg'); background-size:cover; background-position:center;">
-                </div>
-                <div class="content">
-                    <div class="title">Reog Ponorogo</div>
-                    <div class="desc">Seni pertunjukan rakyat penuh topeng dan kuda lumping.</div>
-                    <a class="btn" href="#reog">Baca</a>
-                </div>
-            </article>
-        </div>
-    </section>
- 
-    <section class="ulasan">
-        <div class="ulasan-header">
-            <h2>Ulasan</h2>
-            <button class="selengkapnya">Selengkapnya</button>
-        </div>
- 
-        <div class="ulasan-container">
-            <div class="ulasan-item">
-                <img src="../assets/jacob.jpg">
-                <div class="ulasan-text">
-                    <h3>Jacob Jones</h3>
-                    <p>Pertunjukan Reog Ponorogo benar-benar megah! Topeng singa barongnya bikin merinding sekaligus
-                        kagum sama kekuatan para penarinya</p>
-                </div>
+
+        <section class="main">
+            <div class="section-title">
+                <h3>Budaya Terpopuler</h3>
             </div>
- 
-            <div class="ulasan-item">
-                <img src="../assets/janecoop.jpg">
-                <div class="ulasan-text">
-                    <h3>Jane Cooper</h3>
-                    <p>Karapan sapi itu unik banget, bukan hanya lomba cepat sapi tapi juga pesta rakyat yang penuh
-                        semangat dan kebersamaan.</p>
-                </div>
-            </div>
- 
-            <div class="ulasan-item">
-                <img src="../assets/kathryn.jpg">
-                <div class="ulasan-text">
-                    <h3>Kathryn Murphy</h3>
-                    <p>Artikel tentang Yadnya Kasada ini menarik sekali, saya jadi lebih paham bagaimana masyarakat
-                        Tengger menjaga tradisi dengan penuh rasa syukur di Gunung Bromo.</p>
-                </div>
-            </div>
- 
-            <div class="ulasan-item">
-                <img src="../assets/jenny.jpg">
-                <div class="ulasan-text">
-                    <h3>Jenny Wilson</h3>
-                    <p>Tulisan ini membuka wawasan saya, ternyata Tari Beskalan punya nilai budaya yang tinggi dan masih
-                        sering digunakan untuk menyambut tamu kehormatan di Malang.</p>
-                </div>
-            </div>
-        </div>
-    </section>
- 
-    <section class="unggahan">
-        <h3>Unggahan Terbaru</h3>
-        <div class="unggahan-container">
-            <div class="unggahan-item">
-                <img src="../assets/karapi1.jpg" alt="Karapan Sapi">
-                <div class="overlay">
-                    <h4>Karapan Sapi</h4>
-                    <button>Baca</button>
-                </div>
-            </div>
- 
-            <div class="unggahan-item">
-                <img src="../assets/yadnaka.jpg" alt="Yadna Kasada">
-                <div class="overlay">
-                    <h4>Yadna Kasada</h4>
-                    <button>Baca</button>
-                </div>
-            </div>
- 
-            <div class="unggahan-item">
-                <img src="../assets/reogponorogo.jpg" alt="Reog Ponorogo">
-                <div class="overlay">
-                    <h4>Reog Ponorogo</h4>
-                    <button>Baca</button>
-                </div>
-            </div>
-        </div>
-    </section>
- 
-    <footer class="footer">
-        <div class="footer-container">
-            <div class="footer-logo">
-                <img src="../assets/logo.png" alt="Logo Budaya">
-            </div>
- 
-            <div class="footer-left">
-                <div class="footer-sections-wrapper">
-                    <div class="footer-section">
-                        <h3>Fitur</h3>
-                        <ul>
-                            <li>Beranda</li>
-                            <li>Daftar Budaya</li>
-                            <li>Ulasan</li>
-                            <li>Favorit</li>
-                        </ul>
+
+            <div class="cards">
+                <article class="card">
+                    <div class="thumb"
+                        style="background-image:url('assets/yadnaka.jpg'); background-size:cover; background-position:center;">
                     </div>
- 
-                    <div class="footer-section">
-                        <h3>Ikuti Kami</h3>
-                        <ul>
-                            <li>Instagram</li>
-                            <li>Facebook</li>
-                            <li>Twitter</li>
-                            <li>LinkedIn</li>
-                        </ul>
+                    <div class="content">
+                        <div class="title">Karapan Sapi</div>
+                        <div class="desc">Tradisi balap sapi dari Madura yang ikonik dan penuh semangat.</div>
+                        <a class="btn" href="#karapan">Baca</a>
                     </div>
- 
-                    <div class="footer-section">
-                        <h3>Hubungi</h3>
-                        <p>Telp:<br>+62 812 3456 7890</p>
-                        <p>Email:<br>explorebudaya@gmail.com</p>
+                </article>
+
+                <article class="card">
+                    <div class="thumb"
+                        style="background-image:url('assets/karapi1.jpg'); background-size:cover; background-position:center;">
+                    </div>
+                    <div class="content">
+                        <div class="title">Yadnya Kasada</div>
+                        <div class="desc">Upacara adat rakyat Tengger di kanan Gunung Bromo.</div>
+                        <a class="btn" href="#kasada">Baca</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="thumb"
+                        style="background-image:url('assets/tarbes.jpg'); background-size:cover; background-position:center;">
+                    </div>
+                    <div class="content">
+                        <div class="title">Tari Beskalan</div>
+                        <div class="desc">Salah satu tarian tradisional dengan gerak khas.</div>
+                        <a class="btn" href="#tari">Baca</a>
+                    </div>
+                </article>
+
+                <article class="card">
+                    <div class="thumb"
+                        style="background-image:url('assets/reogponorogo.jpg'); background-size:cover; background-position:center;">
+                    </div>
+                    <div class="content">
+                        <div class="title">Reog Ponorogo</div>
+                        <div class="desc">Seni pertunjukan rakyat penuh topeng dan kuda lumping.</div>
+                        <a class="btn" href="#reog">Baca</a>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <section class="ulasan">
+            <div class="ulasan-header">
+                <h2>Ulasan</h2>
+                <button class="selengkapnya">Selengkapnya</button>
+            </div>
+
+            <div class="ulasan-container">
+                <div class="ulasan-item">
+                    <img src="assets/jacob.jpg">
+                    <div class="ulasan-text">
+                        <h3>Jacob Jones</h3>
+                        <p>Pertunjukan Reog Ponorogo benar-benar megah! Topeng singa barongnya bikin merinding sekaligus
+                            kagum sama kekuatan para penarinya</p>
                     </div>
                 </div>
- 
-                <div class="footer-desc">
-                    Website ini dibuat untuk melestarikan dan mempromosikan kekayaan budaya Jawa Timur.
-                    Kami menyajikan informasi, artikel, dan galeri foto yang menyoroti keindahan dan
-                    keunikan tradisi, seni, dan warisan Jawa Timur.
+
+                <div class="ulasan-item">
+                    <img src="assets/janecoop.jpg">
+                    <div class="ulasan-text">
+                        <h3>Jane Cooper</h3>
+                        <p>Karapan sapi itu unik banget, bukan hanya lomba cepat sapi tapi juga pesta rakyat yang penuh
+                            semangat dan kebersamaan.</p>
+                    </div>
+                </div>
+
+                <div class="ulasan-item">
+                    <img src="assets/kathryn.jpg">
+                    <div class="ulasan-text">
+                        <h3>Kathryn Murphy</h3>
+                        <p>Artikel tentang Yadnya Kasada ini menarik sekali, saya jadi lebih paham bagaimana masyarakat
+                            Tengger menjaga tradisi dengan penuh rasa syukur di Gunung Bromo.</p>
+                    </div>
+                </div>
+
+                <div class="ulasan-item">
+                    <img src="assets/jenny.jpg">
+                    <div class="ulasan-text">
+                        <h3>Jenny Wilson</h3>
+                        <p>Tulisan ini membuka wawasan saya, ternyata Tari Beskalan punya nilai budaya yang tinggi dan
+                            masih
+                            sering digunakan untuk menyambut tamu kehormatan di Malang.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </footer>
- 
-    <script>
-        function toggleMenu() {
-            const navMenu = document.querySelector('nav ul');
-            const hamburger = document.querySelector('.hamburger-menu');
-            navMenu.classList.toggle('active');
-            hamburger.classList.toggle('active');
-        }
-    </script>
- 
+        </section>
+
+        <section class="unggahan">
+            <h3>Unggahan Terbaru</h3>
+            <div class="unggahan-container">
+                <div class="unggahan-item">
+                    <img src="assets/karapi1.jpg" alt="Karapan Sapi">
+                    <div class="overlay">
+                        <h4>Karapan Sapi</h4>
+                        <button>Baca</button>
+                    </div>
+                </div>
+
+                <div class="unggahan-item">
+                    <img src="assets/yadnaka.jpg" alt="Yadna Kasada">
+                    <div class="overlay">
+                        <h4>Yadna Kasada</h4>
+                        <button>Baca</button>
+                    </div>
+                </div>
+
+                <div class="unggahan-item">
+                    <img src="assets/reogponorogo.jpg" alt="Reog Ponorogo">
+                    <div class="overlay">
+                        <h4>Reog Ponorogo</h4>
+                        <button>Baca</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <div class="footer-container">
+                <div class="footer-logo">
+                    <img src="assets/logo.png" alt="Logo Budaya">
+                </div>
+
+                <div class="footer-left">
+                    <div class="footer-sections-wrapper">
+                        <div class="footer-section">
+                            <h3>Fitur</h3>
+                            <ul>
+                                <li>Beranda</li>
+                                <li>Daftar Budaya</li>
+                                <li>Ulasan</li>
+                                <li>Favorit</li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-section">
+                            <h3>Ikuti Kami</h3>
+                            <ul>
+                                <li>Instagram</li>
+                                <li>Facebook</li>
+                                <li>Twitter</li>
+                                <li>LinkedIn</li>
+                            </ul>
+                        </div>
+
+                        <div class="footer-section">
+                            <h3>Hubungi</h3>
+                            <p>Telp:<br>+62 812 3456 7890</p>
+                            <p>Email:<br>explorebudaya@gmail.com</p>
+                        </div>
+                    </div>
+
+                    <div class="footer-desc">
+                        Website ini dibuat untuk melestarikan dan mempromosikan kekayaan budaya Jawa Timur.
+                        Kami menyajikan informasi, artikel, dan galeri foto yang menyoroti keindahan dan
+                        keunikan tradisi, seni, dan warisan Jawa Timur.
+                    </div>
+                </div>
+            </div>
+        </footer>
+
+        <script>
+            function toggleMenu() {
+                const navMenu = document.querySelector('nav ul');
+                const hamburger = document.querySelector('.hamburger-menu');
+                navMenu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+            }
+        </script>
+
 </body>
- 
+
 </html>

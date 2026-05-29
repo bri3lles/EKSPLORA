@@ -205,17 +205,19 @@ body {
     color: #501006;
     font-size: 10px;
     transition: background-color 0.3s, border-color 0.3s;
+    text-decoration: none;
 }
 
 .social-icon:hover {
     border-color: #501006;
     background-color: #fef2f2;
+    text-decoration: none;
 }
 
 /* --- Footer Link (Pindah halaman) --- */
 .switch-link {
     text-align: center;
-    margin-top: 60px;
+    margin-top: 50px;
     font-size: 10px;
     color: #50100676;
 }
@@ -230,4 +232,5 @@ body {
 .switch-link a:hover {
     color: #50100676;
     text-decoration: underline;
+    text-decoration: none;
 }
